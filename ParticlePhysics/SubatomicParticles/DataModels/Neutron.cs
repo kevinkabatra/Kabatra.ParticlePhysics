@@ -13,16 +13,17 @@
     {
         public const ChargeType ConstantChargeType = ChargeType.Neutral;
         public static readonly double ConstantMass = 1.67492749804 * Math.Pow(10, -27);
-        //public static readonly int ConstantBetaDecayTimeInSeconds = 879;
-        public static readonly int ConstantBetaDecayTimeInSeconds = 5;
+        public static readonly int ConstantBetaDecayTimeInSeconds = 879;
         public static readonly int ConstantBetaDecayTimeInMilliseconds = ConstantBetaDecayTimeInSeconds * 1000;
+
+        public Timer BetaDecayEvent;
 
         public Neutron() : base(ConstantChargeType, ConstantMass)
         {
-            var betaDecayEvent = new Timer(ConstantBetaDecayTimeInMilliseconds);
-            betaDecayEvent.Elapsed += BetaDecay;
-            betaDecayEvent.AutoReset = false;
-            betaDecayEvent.Enabled = true;
+            BetaDecayEvent = new Timer(ConstantBetaDecayTimeInMilliseconds);
+            BetaDecayEvent.Elapsed += BetaDecay;
+            BetaDecayEvent.AutoReset = false;
+            BetaDecayEvent.Enabled = true;
         }
 
         private static void BetaDecay(object neutron, ElapsedEventArgs elapsedEventArgs)
