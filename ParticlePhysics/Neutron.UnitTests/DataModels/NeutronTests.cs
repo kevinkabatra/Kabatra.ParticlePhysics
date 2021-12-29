@@ -1,6 +1,6 @@
-﻿namespace Neutron.UnitTests.DataModels
+﻿namespace SubatomicParticles.UnitTests.DataModels
 {
-    using Neutron.DataModels;
+    using SubatomicParticles.DataModels;
     using Xunit;
 
     public class NeutronTests
@@ -11,8 +11,23 @@
             var neutron = new Neutron();
 
             Assert.NotNull(neutron);
-            Assert.Equal(Neutron.NeutronConstantChargeType, neutron.Charge);
-            Assert.Equal(Neutron.NeutronConstantMass, neutron.Mass);
+            Assert.Equal(Neutron.ConstantChargeType, neutron.Charge);
+            Assert.Equal(Neutron.ConstantMass, neutron.Mass);
+        }
+
+        [Fact]
+        public void CanDecayIntoProtonAndElectron()
+        {
+            Universe.DataModels.Universe.Reset();
+            var universe = Universe.DataModels.Universe.GetOrCreateInstance();
+            
+            var neutron = new Neutron();
+
+            // Wait for the neutron to decay
+            System.Threading.Thread.Sleep(Neutron.ConstantBetaDecayTimeInMilliseconds + 10);
+            
+            Assert.NotNull(universe);
+            Assert.Equal(2, universe.SubatomicParticles.Count);
         }
     }
 }

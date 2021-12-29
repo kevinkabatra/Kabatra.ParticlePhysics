@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Universe\Universe.csproj" />
+    <PackageReference Include="Kabatra.Common.Singleton" Version="1.0.0" />
   </ItemGroup>
 
 </Project>

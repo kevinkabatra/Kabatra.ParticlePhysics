@@ -3,9 +3,9 @@
     using Constants;
     using Interfaces;
 
-    public class CompositeParticle: ICompositeParticle
+    public abstract class CompositeParticle: ICompositeParticle
     {
-        public CompositeParticle(ChargeType charge, double mass)
+        protected CompositeParticle(ChargeType charge, double mass)
         {
             Charge = charge;
             Mass = mass;
