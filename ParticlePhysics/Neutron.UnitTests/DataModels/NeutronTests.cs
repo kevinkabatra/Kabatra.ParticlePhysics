@@ -46,7 +46,6 @@
             _neutron = new Neutron();
             var universe = Universe.DataModels.Universe.GetOrCreateInstance();
 
-            Assert.Single(universe.SubatomicParticles);
             Assert.Contains(_neutron, universe.SubatomicParticles);
         }
     }
