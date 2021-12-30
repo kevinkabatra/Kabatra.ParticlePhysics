@@ -33,7 +33,7 @@
             var currentTime = DateTime.Now;
             // I know that I could wait with Sleep, but then I couldn't update the UI nicely to tell you how much longer to wait.
             var finishWaitTime = currentTime.AddSeconds(neutronDecayTime);
-            while (currentTime != finishWaitTime)
+            while (currentTime < finishWaitTime)
             {
                 Console.WriteLine("Waiting... Time remaining:" + (finishWaitTime - currentTime));
 
