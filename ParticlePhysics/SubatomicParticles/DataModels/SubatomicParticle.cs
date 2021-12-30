@@ -3,6 +3,7 @@
     using Constants;
     using Interfaces;
 
+    /// <inheritdoc cref="ISubatomicParticle"/>
     public abstract class SubatomicParticle : ISubatomicParticle
     {
         protected SubatomicParticle(ChargeType charge, double mass)

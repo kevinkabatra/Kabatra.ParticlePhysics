@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{BD261C4B-E4AE-42FF-A7DF-15D5D1DBE34A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{BD261C4B-E4AE-42FF-A7DF-15D5D1DBE34A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubatomicParticles.UnitTests", "Neutron.UnitTests\SubatomicParticles.UnitTests.csproj", "{94CE01CC-3A24-4658-82FB-98F6D1CAC504}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubatomicParticles.UnitTests", "Neutron.UnitTests\SubatomicParticles.UnitTests.csproj", "{94CE01CC-3A24-4658-82FB-98F6D1CAC504}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubatomicParticles", "SubatomicParticles\SubatomicParticles.csproj", "{8269B2A0-6396-4EB8-9678-4862AF549544}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubatomicParticles", "SubatomicParticles\SubatomicParticles.csproj", "{8269B2A0-6396-4EB8-9678-4862AF549544}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Universe", "Universe\Universe.csproj", "{9D0AFFAC-B256-426F-AC5B-9EEFAABBDE4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Universe", "Universe\Universe.csproj", "{9D0AFFAC-B256-426F-AC5B-9EEFAABBDE4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Universe.UnitTests", "Universe.UnitTests\Universe.UnitTests.csproj", "{FFCAC6C7-8B9E-4B55-A1F5-E9167922E1A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{9D0AFFAC-B256-426F-AC5B-9EEFAABBDE4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D0AFFAC-B256-426F-AC5B-9EEFAABBDE4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D0AFFAC-B256-426F-AC5B-9EEFAABBDE4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFCAC6C7-8B9E-4B55-A1F5-E9167922E1A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFCAC6C7-8B9E-4B55-A1F5-E9167922E1A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFCAC6C7-8B9E-4B55-A1F5-E9167922E1A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFCAC6C7-8B9E-4B55-A1F5-E9167922E1A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
