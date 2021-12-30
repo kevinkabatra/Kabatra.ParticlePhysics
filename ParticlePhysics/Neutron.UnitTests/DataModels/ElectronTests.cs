@@ -3,7 +3,7 @@
     using SubatomicParticles.DataModels;
     using Xunit;
 
-    public class ElectronTests
+    public class ElectronTests : SubatomicParticleTest
     {
         [Fact]
         public void CanMakeElectron()
@@ -13,6 +13,15 @@
             Assert.NotNull(electron);
             Assert.Equal(Electron.ConstantChargeType, electron.Charge);
             Assert.Equal(Electron.ConstantMass, electron.Mass);
+        }
+
+        [Fact]
+        public void ElectronIsAddedToUniverseUponCreation()
+        {
+            var electron = new Electron();
+            var universe = Universe.DataModels.Universe.GetOrCreateInstance();
+
+            Assert.Contains(electron, universe.SubatomicParticles);
         }
     }
 }
