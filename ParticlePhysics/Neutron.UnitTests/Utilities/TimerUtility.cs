@@ -11,7 +11,7 @@
             timer.Start();
 
             // Wait for much longer than the time of the timer to allow the event time to finish.
-            System.Threading.Thread.Sleep(500);
+            System.Threading.Thread.Sleep(1000);
         }
     }
 }

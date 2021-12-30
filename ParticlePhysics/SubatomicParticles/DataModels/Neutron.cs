@@ -26,12 +26,22 @@
             BetaDecayEvent.Enabled = true;
         }
 
-        private static void BetaDecay(object neutron, ElapsedEventArgs elapsedEventArgs)
+        /// <summary>
+        ///     When outside of a nucleus neutrons are unstable and will decay.
+        /// <para>See the following article for more information:</para>
+        /// <para><a href="https://en.wikipedia.org/wiki/Free_neutron_decay">Free neutron decay</a></para>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="elapsedEventArgs"></param>
+        private void BetaDecay(object sender, ElapsedEventArgs elapsedEventArgs)
         {
             var universe = Universe.DataModels.Universe.GetOrCreateInstance();
-            universe.SubatomicParticles.Remove(neutron);
-            universe.SubatomicParticles.Add(new Proton());
-            universe.SubatomicParticles.Add(new Electron());
+            universe.SubatomicParticles.Remove(this);
+
+            // Discard the new instances, they automatically add themselves to the universe.
+            // https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/functional/discards
+            _ = new Proton();
+            _ = new Electron();
         }
     }
 }
