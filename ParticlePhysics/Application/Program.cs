@@ -11,13 +11,13 @@
             Console.WriteLine("Welcome to this simple particle physics simulator.");
             Console.WriteLine("Developed by: Kevin Kabatra");
             Console.WriteLine("Let's get started.");
-            Console.WriteLine();
+            WaitUserToContinue();
 
             var universe = Universe.GetOrCreateInstance();
             Console.WriteLine("At the creation of space and time there was a big bang, this gave birth to our universe.");
             PrintUniverseSubAtomicParticleCount(universe);
             Console.WriteLine("Our universe is currently empty, so let's add some particles to it.");
-            Console.WriteLine();
+            WaitUserToContinue();
 
             Console.WriteLine("First we will add a single Neutron.");
             _ = new Neutron();
@@ -26,7 +26,7 @@
             Console.WriteLine("There. That is better. Our lonely universe now has a friend it can make.");
             Console.WriteLine("Sadly this friendship cannot last long. As a neutron that is outside of a nucleus will decay in roughly 14 minutes.");
             Console.WriteLine("I wonder what it will decay to, after all the Law of Conservation of Mass says that matter cannot be destroyed. Come back once it is complete to find out.");
-            Console.WriteLine();
+            WaitUserToContinue();
 
             // Adding some buffer for the event to finish.
             var neutronDecayTime = Neutron.ConstantBetaDecayTimeInSeconds + 1;
@@ -63,6 +63,15 @@
             {
                 Console.WriteLine(subatomicParticle.ToString());
             }
+        }
+
+        private static void WaitUserToContinue()
+        {
+            Console.WriteLine("Press any key to continue...");
+            Console.WriteLine();
+
+            const bool hideUserInput = true;
+            Console.ReadKey(hideUserInput);
         }
     }
 }
