@@ -1,10 +1,7 @@
 ﻿namespace SubatomicParticles.UnitTests.DataModels
 {
     using System.Linq;
-    using SubatomicParticles.DataModels;
-    using SubatomicParticles.DataModels.CompositeParticles;
     using SubatomicParticles.DataModels.CompositeParticles.Hadrons.Baryons;
-    using SubatomicParticles.DataModels.ElementaryParticles.Quarks;
     using Utilities;
     using Xunit;
 
