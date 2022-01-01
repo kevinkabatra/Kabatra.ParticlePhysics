@@ -11,9 +11,11 @@
     public class Proton : CompositeParticle
     {
         public const ChargeType ConstantChargeType = ChargeType.Positive;
-        public static readonly double ConstantMass = 1.67262192369 * Math.Pow(10, -27);
+        public const double ConstantChargeValue = 1d;
+        public static readonly double ConstantMassInKilograms = 1.67262192369 * Math.Pow(10, -27);
+        public const double ConstantMassInElectronVolts = 938.27208816;
 
-        public Proton() : base(ConstantChargeType, ConstantMass)
+        public Proton() : base(ConstantChargeType, ConstantChargeValue, ConstantMassInKilograms, ConstantMassInElectronVolts)
         {
         }
     }

@@ -12,13 +12,15 @@
     public class Neutron : CompositeParticle
     {
         public const ChargeType ConstantChargeType = ChargeType.Neutral;
-        public static readonly double ConstantMass = 1.67492749804 * Math.Pow(10, -27);
+        public const double ConstantChargeValue = 1d;
+        public static readonly double ConstantMassInKilograms = 1.67492749804 * Math.Pow(10, -27);
+        public const double ConstantMassInElectronVolts = 939.56542052;
         public static readonly int ConstantBetaDecayTimeInSeconds = 879;
         public static readonly int ConstantBetaDecayTimeInMilliseconds = ConstantBetaDecayTimeInSeconds * 1000;
 
         public Timer BetaDecayEvent;
 
-        public Neutron() : base(ConstantChargeType, ConstantMass)
+        public Neutron() : base(ConstantChargeType, ConstantChargeValue, ConstantMassInKilograms, ConstantMassInElectronVolts)
         {
             BetaDecayEvent = new Timer(ConstantBetaDecayTimeInMilliseconds);
             BetaDecayEvent.Elapsed += BetaDecay;

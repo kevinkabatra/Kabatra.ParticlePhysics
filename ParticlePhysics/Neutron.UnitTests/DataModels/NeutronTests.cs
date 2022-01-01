@@ -25,7 +25,7 @@
 
             Assert.NotNull(_neutron);
             Assert.Equal(Neutron.ConstantChargeType, _neutron.Charge);
-            Assert.Equal(Neutron.ConstantMass, _neutron.Mass);
+            Assert.Equal(Neutron.ConstantMassInKilograms, _neutron.MassInKilograms);
         }
 
         [Fact]

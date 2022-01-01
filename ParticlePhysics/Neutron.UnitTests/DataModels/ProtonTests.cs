@@ -12,7 +12,7 @@
 
             Assert.NotNull(proton);
             Assert.Equal(Proton.ConstantChargeType, proton.Charge);
-            Assert.Equal(Proton.ConstantMass, proton.Mass);
+            Assert.Equal(Proton.ConstantMassInKilograms, proton.MassInKilograms);
         }
 
         [Fact]

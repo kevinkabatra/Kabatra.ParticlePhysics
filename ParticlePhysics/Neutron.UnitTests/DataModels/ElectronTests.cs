@@ -12,7 +12,7 @@
 
             Assert.NotNull(electron);
             Assert.Equal(Electron.ConstantChargeType, electron.Charge);
-            Assert.Equal(Electron.ConstantMass, electron.Mass);
+            Assert.Equal(Electron.ConstantMassInKilograms, electron.MassInKilograms);
         }
 
         [Fact]
