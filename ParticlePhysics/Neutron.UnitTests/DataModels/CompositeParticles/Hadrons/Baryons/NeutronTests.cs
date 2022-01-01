@@ -2,6 +2,7 @@
 {
     using System.Linq;
     using SubatomicParticles.DataModels.CompositeParticles.Hadrons.Baryons;
+    using SubatomicParticles.DataModels.ElementaryParticles;
     using Utilities;
     using Xunit;
 
@@ -45,7 +46,8 @@
             // Wait for the neutron to decay
             TimerUtility.FireTimerAndWait(_neutron.BetaDecayEvent);
             
-            Assert.Equal(2, universe.SubatomicParticles.Count);
+            Assert.NotEmpty(universe.SubatomicParticles.OfType<Proton>());
+            Assert.NotEmpty(universe.SubatomicParticles.OfType<Electron>());
         }
 
         [Fact]
