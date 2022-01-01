@@ -59,9 +59,12 @@
         private static void PrintUniverseContents(Universe universe)
         {
             Console.WriteLine("The universe currently contains:");
+            
+            var iterator = 1;
             foreach (var subatomicParticle in universe.SubatomicParticles)
             {
-                Console.WriteLine(subatomicParticle.ToString());
+                Console.WriteLine("    " + iterator + ": " + subatomicParticle.GetType().Name);
+                iterator++;
             }
         }
 
