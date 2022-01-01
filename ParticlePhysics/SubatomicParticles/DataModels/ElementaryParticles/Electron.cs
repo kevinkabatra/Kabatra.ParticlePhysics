@@ -1,4 +1,4 @@
-﻿namespace SubatomicParticles.DataModels
+﻿namespace SubatomicParticles.DataModels.ElementaryParticles
 {
     using System;
     using Constants;

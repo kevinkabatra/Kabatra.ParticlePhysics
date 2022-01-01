@@ -1,4 +1,4 @@
-﻿namespace SubatomicParticles.DataModels.Quarks
+﻿namespace SubatomicParticles.DataModels.ElementaryParticles.Quarks
 {
     using Constants;
 

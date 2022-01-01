@@ -1,4 +1,4 @@
-﻿namespace SubatomicParticles.DataModels
+﻿namespace SubatomicParticles.DataModels.CompositeParticles.Hadrons.Baryons
 {
     using System;
     using Constants;

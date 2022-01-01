@@ -1,6 +1,7 @@
 ﻿namespace SubatomicParticles.UnitTests.DataModels
 {
     using SubatomicParticles.DataModels;
+    using SubatomicParticles.DataModels.ElementaryParticles;
     using Xunit;
 
     public class ElectronTests : SubatomicParticleTest

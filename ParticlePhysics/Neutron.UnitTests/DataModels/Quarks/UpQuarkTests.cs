@@ -1,6 +1,6 @@
 ﻿namespace SubatomicParticles.UnitTests.DataModels.Quarks
 {
-    using SubatomicParticles.DataModels.Quarks;
+    using SubatomicParticles.DataModels.ElementaryParticles.Quarks;
     using Xunit;
 
     public class UpQuarkTests : QuarkTests<UpQuark>

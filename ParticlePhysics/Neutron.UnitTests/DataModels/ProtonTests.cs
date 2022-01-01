@@ -1,6 +1,8 @@
 ﻿namespace SubatomicParticles.UnitTests.DataModels
 {
     using SubatomicParticles.DataModels;
+    using SubatomicParticles.DataModels.CompositeParticles;
+    using SubatomicParticles.DataModels.CompositeParticles.Hadrons.Baryons;
     using Xunit;
 
     public class ProtonTests : SubatomicParticleTest

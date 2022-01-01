@@ -1,7 +1,8 @@
-﻿namespace SubatomicParticles.DataModels.Quarks
+﻿namespace SubatomicParticles.DataModels.ElementaryParticles.Quarks
 {
     using Constants;
-    using Interfaces;
+    using Interfaces.ElementaryParticles;
+    using Interfaces.ElementaryParticles.Quarks;
 
     /// <inheritdoc cref="IQuark"/>
     public abstract class Quark : ElementaryParticle, IQuark

@@ -1,4 +1,4 @@
-﻿namespace SubatomicParticles.Interfaces
+﻿namespace SubatomicParticles.Interfaces.ElementaryParticles
 {
     /// <summary>
     ///     Elementary particles are subatomic particles that are not composed of other particles (for example: quarks,

@@ -1,18 +1,29 @@
-﻿namespace SubatomicParticles.DataModels
+﻿namespace SubatomicParticles.DataModels.CompositeParticles.Hadrons.Baryons
 {
     using System;
+    using System.Collections.Generic;
     using System.Timers;
     using Constants;
+    using ElementaryParticles;
+    using ElementaryParticles.Quarks;
+    using Interfaces.ElementaryParticles.Quarks;
 
     /// <summary>
     ///     The neutron is a subatomic particle which has a neutral charge and a mass slightly greater than that of a Proton.
     /// <para>See the following article for more information:</para>
     /// <para>1. <a href="https://en.wikipedia.org/wiki/Neutron">Wikipedia: Neutron</a></para>
     /// </summary>
-    public class Neutron : CompositeParticle
+    public class Neutron : Baryon
     {
+        public static readonly ICollection<IQuark> ConstantComposition = new List<IQuark>
+        {
+            new UpQuark(),
+            new DownQuark(),
+            new DownQuark()
+        };
+
         public const ChargeType ConstantChargeType = ChargeType.Neutral;
-        public const double ConstantChargeValue = 1d;
+        public const double ConstantChargeValue = 0d;
         public static readonly double ConstantMassInKilograms = 1.67492749804 * Math.Pow(10, -27);
         public const double ConstantMassInElectronVolts = 939.56542052;
         public static readonly int ConstantBetaDecayTimeInSeconds = 879;
@@ -20,7 +31,7 @@
 
         public Timer BetaDecayEvent;
 
-        public Neutron() : base(ConstantChargeType, ConstantChargeValue, ConstantMassInKilograms, ConstantMassInElectronVolts)
+        public Neutron() : base(ConstantComposition, ConstantMassInKilograms, ConstantMassInElectronVolts)
         {
             BetaDecayEvent = new Timer(ConstantBetaDecayTimeInMilliseconds);
             BetaDecayEvent.Elapsed += BetaDecay;

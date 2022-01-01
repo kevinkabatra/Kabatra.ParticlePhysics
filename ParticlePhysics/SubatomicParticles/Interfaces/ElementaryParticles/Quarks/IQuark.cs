@@ -1,4 +1,4 @@
-﻿namespace SubatomicParticles.Interfaces
+﻿namespace SubatomicParticles.Interfaces.ElementaryParticles.Quarks
 {
     using Constants;
 

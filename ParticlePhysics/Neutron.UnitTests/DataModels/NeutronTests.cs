@@ -1,6 +1,10 @@
 ﻿namespace SubatomicParticles.UnitTests.DataModels
 {
+    using System.Linq;
     using SubatomicParticles.DataModels;
+    using SubatomicParticles.DataModels.CompositeParticles;
+    using SubatomicParticles.DataModels.CompositeParticles.Hadrons.Baryons;
+    using SubatomicParticles.DataModels.ElementaryParticles.Quarks;
     using Utilities;
     using Xunit;
 
@@ -24,8 +28,15 @@
             _neutron = new Neutron();
 
             Assert.NotNull(_neutron);
+            Assert.Collection(_neutron.Quarks,
+                    firstQuark => Assert.Equal(Neutron.ConstantComposition.ToList()[0], firstQuark),
+                    secondQuark => Assert.Equal(Neutron.ConstantComposition.ToList()[1], secondQuark),
+                    thirdQuark => Assert.Equal(Neutron.ConstantComposition.ToList()[2], thirdQuark)
+            );
             Assert.Equal(Neutron.ConstantChargeType, _neutron.Charge);
+            Assert.Equal(Neutron.ConstantChargeValue, _neutron.ChargeValue);
             Assert.Equal(Neutron.ConstantMassInKilograms, _neutron.MassInKilograms);
+            Assert.Equal(Neutron.ConstantMassInElectronVolts, _neutron.MassInElectronVolts);
         }
 
         [Fact]

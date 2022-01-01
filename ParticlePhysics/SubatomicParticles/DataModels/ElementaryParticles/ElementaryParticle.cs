@@ -1,7 +1,7 @@
-﻿namespace SubatomicParticles.DataModels
+﻿namespace SubatomicParticles.DataModels.ElementaryParticles
 {
     using Constants;
-    using Interfaces;
+    using Interfaces.ElementaryParticles;
 
     /// <inheritdoc cref="IElementaryParticle"/>
     public abstract class ElementaryParticle : SubatomicParticle, IElementaryParticle

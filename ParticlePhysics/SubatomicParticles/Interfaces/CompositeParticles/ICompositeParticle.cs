@@ -1,4 +1,4 @@
-﻿namespace SubatomicParticles.Interfaces
+﻿namespace SubatomicParticles.Interfaces.CompositeParticles
 {
     /// <summary>
     ///     Composite particles are subatomic particles that are composed of other particles (for example: a proton, neutron, or meson).
