@@ -1,7 +1,5 @@
-﻿namespace SubatomicParticles.UnitTests.DataModels
+﻿namespace SubatomicParticles.UnitTests.DataModels.CompositeParticles.Hadrons.Baryons
 {
-    using SubatomicParticles.DataModels;
-    using SubatomicParticles.DataModels.CompositeParticles;
     using SubatomicParticles.DataModels.CompositeParticles.Hadrons.Baryons;
     using Xunit;
 

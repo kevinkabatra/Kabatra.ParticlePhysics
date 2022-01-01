@@ -1,4 +1,4 @@
-﻿namespace SubatomicParticles.UnitTests.DataModels.Quarks
+﻿namespace SubatomicParticles.UnitTests.DataModels.ElementaryParticles.Quarks
 {
     using SubatomicParticles.DataModels.ElementaryParticles.Quarks;
     using Xunit;

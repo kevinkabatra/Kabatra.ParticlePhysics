@@ -1,4 +1,4 @@
-﻿namespace SubatomicParticles.UnitTests.DataModels
+﻿namespace SubatomicParticles.UnitTests.DataModels.CompositeParticles.Hadrons.Baryons
 {
     using System.Linq;
     using SubatomicParticles.DataModels.CompositeParticles.Hadrons.Baryons;

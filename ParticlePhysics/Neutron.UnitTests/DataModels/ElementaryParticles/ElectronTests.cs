@@ -1,6 +1,5 @@
-﻿namespace SubatomicParticles.UnitTests.DataModels
+﻿namespace SubatomicParticles.UnitTests.DataModels.ElementaryParticles
 {
-    using SubatomicParticles.DataModels;
     using SubatomicParticles.DataModels.ElementaryParticles;
     using Xunit;
 
