@@ -1,9 +1,5 @@
 ﻿namespace SubatomicParticles.Interfaces.CompositeParticles.Hadrons
 {
-    using System.Collections.Generic;
-    using ElementaryParticles;
-    using ElementaryParticles.Quarks;
-
     /// <summary>
     ///     A hadron is a composite subatomic particle made of two or more quarks held together by the strong interaction.
     ///  Hadrons are either:
@@ -15,7 +11,6 @@
     /// </summary>
     public interface IHadron : ICompositeParticle
     {
-        IEnumerable<IQuark> Quarks { get; }
-        IEnumerable<IGluon> Gluons { get; }
+
     }
 }
