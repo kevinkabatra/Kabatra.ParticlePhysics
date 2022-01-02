@@ -1,8 +1,6 @@
 ﻿namespace Application
 {
     using System;
-    using SubatomicParticles.DataModels;
-    using SubatomicParticles.DataModels.CompositeParticles;
     using SubatomicParticles.DataModels.CompositeParticles.Hadrons.Baryons;
     using Universe.DataModels;
 
