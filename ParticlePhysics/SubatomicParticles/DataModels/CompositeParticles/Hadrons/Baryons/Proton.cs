@@ -25,7 +25,7 @@
         public static readonly double ConstantMassInKilograms = 1.67262192369 * Math.Pow(10, -27);
         public const double ConstantMassInElectronVolts = 938.27208816;
 
-        public Proton() : base(ConstantComposition, ConstantMassInKilograms, ConstantMassInElectronVolts)
+        public Proton() : base(ConstantComposition, ConstantGluons, ConstantMassInKilograms, ConstantMassInElectronVolts)
         {
         }
     }

@@ -17,6 +17,7 @@
                 secondQuark => Assert.Equal(Proton.ConstantComposition.ToList()[1], secondQuark),
                 thirdQuark => Assert.Equal(Proton.ConstantComposition.ToList()[2], thirdQuark)
             );
+            Assert.Equal(Baryon.ConstantGluons.Count, proton.Gluons.Count());
             Assert.Equal(Proton.ConstantChargeType, proton.Charge);
             Assert.Equal(Proton.ConstantChargeValue, proton.ChargeValue);
             Assert.Equal(Proton.ConstantMassInKilograms, proton.MassInKilograms);

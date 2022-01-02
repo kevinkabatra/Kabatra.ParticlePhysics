@@ -1,6 +1,7 @@
 ﻿namespace SubatomicParticles.Interfaces.CompositeParticles.Hadrons
 {
     using System.Collections.Generic;
+    using ElementaryParticles;
     using ElementaryParticles.Quarks;
 
     /// <summary>
@@ -15,5 +16,6 @@
     public interface IHadron : ICompositeParticle
     {
         IEnumerable<IQuark> Quarks { get; }
+        IEnumerable<IGluon> Gluons { get; }
     }
 }

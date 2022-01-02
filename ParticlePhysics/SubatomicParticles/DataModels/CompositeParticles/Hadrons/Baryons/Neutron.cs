@@ -31,7 +31,7 @@
 
         public Timer BetaDecayEvent;
 
-        public Neutron() : base(ConstantComposition, ConstantMassInKilograms, ConstantMassInElectronVolts)
+        public Neutron() : base(ConstantComposition, ConstantGluons, ConstantMassInKilograms, ConstantMassInElectronVolts)
         {
             BetaDecayEvent = new Timer(ConstantBetaDecayTimeInMilliseconds);
             BetaDecayEvent.Elapsed += BetaDecay;

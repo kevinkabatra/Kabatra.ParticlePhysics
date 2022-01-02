@@ -5,6 +5,7 @@
     using System.Linq;
     using Constants;
     using Interfaces.CompositeParticles.Hadrons;
+    using Interfaces.ElementaryParticles;
     using Interfaces.ElementaryParticles.Quarks;
 
     /// <inheritdoc cref="IHadron"/>
@@ -22,7 +23,7 @@
         /// if the n quarks do nothing at all.
         /// </remarks>
         [SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]
-        protected Hadron(IEnumerable<IQuark> quarks, double? massInKilograms, double? massInElectronVolts) : base(
+        protected Hadron(IEnumerable<IQuark> quarks, IEnumerable<IGluon> gluons, double? massInKilograms, double? massInElectronVolts) : base(
             GetChargeType(GetCharge(quarks)),
             GetCharge(quarks),
             massInKilograms,
@@ -30,9 +31,11 @@
         )
         {
             Quarks = quarks;
+            Gluons = gluons;
         }
 
         public IEnumerable<IQuark> Quarks { get; }
+        public IEnumerable<IGluon> Gluons { get; }
 
         private static double GetCharge(IEnumerable<IQuark> quarks)
         {
