@@ -1,8 +1,12 @@
 ﻿namespace SubatomicParticles.UnitTests.DataModels.CompositeParticles.Hadrons.Baryons
 {
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
+    using Interfaces.ElementaryParticles.Quarks;
     using SubatomicParticles.DataModels.CompositeParticles.Hadrons.Baryons;
     using SubatomicParticles.DataModels.ElementaryParticles;
+    using SubatomicParticles.DataModels.ElementaryParticles.Quarks;
     using Utilities;
     using Xunit;
 
@@ -16,6 +20,7 @@
             base.Dispose();
 
             // Remove timer when object is no longer needed, otherwise it will pollute universe
+            if (_neutron == null) return;
             _neutron.BetaDecayEvent.Dispose();
             _neutron = null;
         }
@@ -24,18 +29,27 @@
         public void CanMakeNeutron()
         {
             _neutron = new Neutron();
+            ValidateNeutronCreation();
+        }
 
-            Assert.NotNull(_neutron);
-            Assert.Collection(_neutron.Quarks,
-                    firstQuark => Assert.Equal(Neutron.ConstantComposition.ToList()[0], firstQuark),
-                    secondQuark => Assert.Equal(Neutron.ConstantComposition.ToList()[1], secondQuark),
-                    thirdQuark => Assert.Equal(Neutron.ConstantComposition.ToList()[2], thirdQuark)
-            );
-            Assert.Equal(Baryon.ConstantGluons.Count, _neutron.Gluons.Count());
-            Assert.Equal(Neutron.ConstantChargeType, _neutron.Charge);
-            Assert.Equal(Neutron.ConstantChargeValue, _neutron.ChargeValue);
-            Assert.Equal(Neutron.ConstantMassInKilograms, _neutron.MassInKilograms);
-            Assert.Equal(Neutron.ConstantMassInElectronVolts, _neutron.MassInElectronVolts);
+        [Fact]
+        public void CanMakeNeutronFromQuarksAndGluons()
+        {
+            _neutron = new Neutron(Neutron.ConstantComposition, Baryon.ConstantGluons);
+            ValidateNeutronCreation();
+        }
+
+        [Fact]
+        public void CannotMakeNeutronWithIncorrectQuarks()
+        {
+            var wrongQuarks = new List<IQuark>
+            {
+                new UpQuark(),
+                new UpQuark(),
+                new UpQuark()
+            };
+
+            Assert.Throws<ArgumentException>(() => _neutron = new Neutron(wrongQuarks, Baryon.ConstantGluons));
         }
 
         [Fact]
@@ -58,6 +72,21 @@
             var universe = Universe.DataModels.Universe.GetOrCreateInstance();
 
             Assert.Contains(_neutron, universe.SubatomicParticles);
+        }
+
+        private void ValidateNeutronCreation()
+        {
+            Assert.NotNull(_neutron);
+            Assert.Collection(_neutron.Quarks,
+                firstQuark => Assert.Equal(Neutron.ConstantComposition.ToList()[0], firstQuark),
+                secondQuark => Assert.Equal(Neutron.ConstantComposition.ToList()[1], secondQuark),
+                thirdQuark => Assert.Equal(Neutron.ConstantComposition.ToList()[2], thirdQuark)
+            );
+            Assert.Equal(Baryon.ConstantGluons.Count, _neutron.Gluons.Count());
+            Assert.Equal(Neutron.ConstantChargeType, _neutron.Charge);
+            Assert.Equal(Neutron.ConstantChargeValue, _neutron.ChargeValue);
+            Assert.Equal(Neutron.ConstantMassInKilograms, _neutron.MassInKilograms);
+            Assert.Equal(Neutron.ConstantMassInElectronVolts, _neutron.MassInElectronVolts);
         }
     }
 }

@@ -2,11 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Timers;
     using Constants;
     using ElementaryParticles;
     using ElementaryParticles.Quarks;
+    using Interfaces.ElementaryParticles;
     using Interfaces.ElementaryParticles.Quarks;
+    using Microsoft.VisualBasic;
 
     /// <summary>
     ///     The neutron is a subatomic particle which has a neutral charge and a mass slightly greater than that of a Proton.
@@ -33,8 +36,29 @@
 
         public Neutron() : base(ConstantComposition, ConstantGluons, ConstantMassInKilograms, ConstantMassInElectronVolts)
         {
+            SetBetaMinusDecayTimer();
+        }
+
+        public Neutron(ICollection<IQuark> quarks, ICollection<IGluon> gluons) : base(quarks, gluons, ConstantMassInKilograms, ConstantMassInElectronVolts)
+        { 
+            var numberOfUpQuarks = quarks.OfType<UpQuark>().Count();
+            var numberOfDownQuarks = quarks.OfType<DownQuark>().Count();
+
+            if (numberOfUpQuarks != 1 && numberOfDownQuarks != 2)
+            {
+                throw new ArgumentException($"A Neutron requires one (1) Up Quark and two (2) Down Quarks. This Neutron contains {numberOfUpQuarks} Up Quarks and {numberOfDownQuarks} Down Quarks.");
+            }
+
+            SetBetaMinusDecayTimer();
+        }
+
+        /// <summary>
+        ///     Sets a timer for the beta minus decay of a neutron.
+        /// </summary>
+        private void SetBetaMinusDecayTimer()
+        {
             BetaDecayEvent = new Timer(ConstantBetaDecayTimeInMilliseconds);
-            BetaDecayEvent.Elapsed += BetaDecay;
+            BetaDecayEvent.Elapsed += BetaMinusDecay;
             BetaDecayEvent.AutoReset = false;
             BetaDecayEvent.Enabled = true;
         }
@@ -46,7 +70,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="elapsedEventArgs"></param>
-        private void BetaDecay(object sender, ElapsedEventArgs elapsedEventArgs)
+        private void BetaMinusDecay(object sender, ElapsedEventArgs elapsedEventArgs)
         {
             var universe = Universe.DataModels.Universe.GetOrCreateInstance();
             universe.SubatomicParticles.Remove(this);
