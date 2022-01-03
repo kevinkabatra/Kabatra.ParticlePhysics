@@ -10,6 +10,9 @@
     public interface ISubatomicParticle
     {
         ChargeType Charge { get; }
-        double Mass { get; }
+        double ChargeValue { get; }
+        double? MassInKilograms { get; }
+        double? MassInElectronVolts { get; }
+        bool HasAttractedToAnotherObject { get; set; }
     }
 }

@@ -1,5 +1,9 @@
-﻿namespace SubatomicParticles.Interfaces
+﻿namespace SubatomicParticles.Interfaces.CompositeParticles
 {
+    using System.Collections.Generic;
+    using ElementaryParticles;
+    using ElementaryParticles.Quarks;
+
     /// <summary>
     ///     Composite particles are subatomic particles that are composed of other particles (for example: a proton, neutron, or meson).
     /// They are bound states of elementary particles.
@@ -9,5 +13,7 @@
     /// </summary>
     public interface ICompositeParticle : ISubatomicParticle
     {
+        IEnumerable<IQuark> Quarks { get; }
+        IEnumerable<IGluon> Gluons { get; }
     }
 }

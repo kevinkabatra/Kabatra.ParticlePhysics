@@ -1,4 +1,4 @@
-﻿namespace SubatomicParticles.DataModels
+﻿namespace SubatomicParticles.DataModels.ElementaryParticles
 {
     using System;
     using Constants;
@@ -11,9 +11,11 @@
     public class Electron : ElementaryParticle
     {
         public const ChargeType ConstantChargeType = ChargeType.Negative;
-        public static readonly double ConstantMass = 9.1093837015 * Math.Pow(10, -31);
+        public const double ConstantChargeValue = 1d;
+        public static readonly double ConstantMassInKilograms = 9.1093837015 * Math.Pow(10, -31);
+        public const double ConstantMassInElectronVolts = 0.51099895000;
 
-        public Electron() : base(ConstantChargeType, ConstantMass)
+        public Electron() : base(ConstantChargeType, ConstantChargeValue, ConstantMassInKilograms, ConstantMassInElectronVolts)
         {
         }
     }

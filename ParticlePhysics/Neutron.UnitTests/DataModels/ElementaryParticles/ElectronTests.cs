@@ -1,9 +1,9 @@
-﻿namespace SubatomicParticles.UnitTests.DataModels
+﻿namespace SubatomicParticles.UnitTests.DataModels.ElementaryParticles
 {
-    using SubatomicParticles.DataModels;
+    using SubatomicParticles.DataModels.ElementaryParticles;
     using Xunit;
 
-    public class ElectronTests : SubatomicParticleTest
+    public class ElectronTests
     {
         [Fact]
         public void CanMakeElectron()
@@ -12,7 +12,7 @@
 
             Assert.NotNull(electron);
             Assert.Equal(Electron.ConstantChargeType, electron.Charge);
-            Assert.Equal(Electron.ConstantMass, electron.Mass);
+            Assert.Equal(Electron.ConstantMassInKilograms, electron.MassInKilograms);
         }
 
         [Fact]

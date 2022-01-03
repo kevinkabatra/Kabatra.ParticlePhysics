@@ -6,10 +6,14 @@
     /// <inheritdoc cref="ISubatomicParticle"/>
     public abstract class SubatomicParticle : ISubatomicParticle
     {
-        protected SubatomicParticle(ChargeType charge, double mass)
+        protected SubatomicParticle(ChargeType charge, double chargeValue, double? massInKilograms, double? massInElectronVolts)
         {
             Charge = charge;
-            Mass = mass;
+            ChargeValue = chargeValue;
+            MassInKilograms = massInKilograms;
+            MassInElectronVolts = massInElectronVolts;
+
+            HasAttractedToAnotherObject = false;
 
             // Add this new particle to the Universe
             var universe = Universe.DataModels.Universe.GetOrCreateInstance();
@@ -17,6 +21,9 @@
         }
 
         public ChargeType Charge { get; }
-        public double Mass { get; }
+        public double ChargeValue { get; }
+        public double? MassInKilograms { get; }
+        public double? MassInElectronVolts { get; }
+        public bool HasAttractedToAnotherObject { get; set; }
     }
 }
