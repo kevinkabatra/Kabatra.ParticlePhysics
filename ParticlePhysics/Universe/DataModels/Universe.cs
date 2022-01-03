@@ -47,6 +47,11 @@
         {
             switch (Epoch)
             {
+                case Epoch.InflationaryEpoch:
+                    TemperatureInKelvin = Math.Pow(10, 28);
+                    TimeInSeconds = Math.Pow(10, -32);
+                    break;
+
                 case Epoch.BeginningQuarkEpoch:
                     TemperatureInKelvin = Math.Pow(10, 15);
                     TimeInSeconds = Math.Pow(10, -12);

@@ -8,6 +8,7 @@
     public enum Epoch
     {
         PlanckEpoch,
+        InflationaryEpoch,
         BeginningQuarkEpoch,
         EndQuarkEpoch
     }
