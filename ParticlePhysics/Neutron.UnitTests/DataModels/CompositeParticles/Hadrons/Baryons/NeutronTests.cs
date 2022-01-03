@@ -10,19 +10,20 @@
     using Utilities;
     using Xunit;
 
-    public class NeutronTests : SubatomicParticleTest
+    public class NeutronTests : IDisposable
     {
         private Neutron _neutron;
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA1816:Dispose methods should call SuppressFinalize", Justification = "This is done in the base class.")]
-        public override void Dispose()
+        public void Dispose()
         {
-            base.Dispose();
-
             // Remove timer when object is no longer needed, otherwise it will pollute universe
             if (_neutron == null) return;
             _neutron.BetaDecayEvent.Dispose();
             _neutron = null;
+
+            // Prevents Garbage Collector from wasting time
+            // https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca1816
+            GC.SuppressFinalize(this);
         }
 
         [Fact]

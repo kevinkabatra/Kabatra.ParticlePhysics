@@ -1,33 +1,47 @@
 ﻿namespace SubatomicParticles.UnitTests.DataModels.ElementaryParticles
 {
+    using System;
     using SubatomicParticles.DataModels.ElementaryParticles;
     using SubatomicParticles.DataModels.ElementaryParticles.Quarks;
     using Utilities;
     using Xunit;
 
-    public class GluonTests : SubatomicParticleTest
+    public class GluonTests : IDisposable
     {
+        private Gluon _gluon;
+        public void Dispose()
+        {
+            if (_gluon == null) return;
+            _gluon.AttachQuarkAEvent.Dispose();
+            _gluon.AttachQuarkBEvent.Dispose();
+            _gluon = null;
+
+            // Prevents Garbage Collector from wasting time
+            // https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca1816
+            GC.SuppressFinalize(this);
+        }
+
         [Fact]
         public void CanCreateGluon()
         {
-            var gluon = new Gluon();
+            _gluon = new Gluon();
 
-            Assert.NotNull(gluon);
-            Assert.Null(gluon.QuarkA);
-            Assert.Null(gluon.QuarkB);
-            Assert.Equal(Gluon.ConstantChargeType, gluon.Charge);
-            Assert.Equal(Gluon.ConstantChargeValue, gluon.ChargeValue);
-            Assert.Equal(Gluon.ConstantMassInKilograms, gluon.MassInKilograms);
-            Assert.Equal(Gluon.ConstantMassInElectronVolts, gluon.MassInElectronVolts);
+            Assert.NotNull(_gluon);
+            Assert.Null(_gluon.QuarkA);
+            Assert.Null(_gluon.QuarkB);
+            Assert.Equal(Gluon.ConstantChargeType, _gluon.Charge);
+            Assert.Equal(Gluon.ConstantChargeValue, _gluon.ChargeValue);
+            Assert.Equal(Gluon.ConstantMassInKilograms, _gluon.MassInKilograms);
+            Assert.Equal(Gluon.ConstantMassInElectronVolts, _gluon.MassInElectronVolts);
         }
 
         [Fact]
         public void GluonIsAddedToUniverseUponCreation()
         {
-            var gluon = new Gluon();
+            _gluon = new Gluon();
             var universe = Universe.DataModels.Universe.GetOrCreateInstance();
 
-            Assert.Contains(gluon, universe.SubatomicParticles);
+            Assert.Contains(_gluon, universe.SubatomicParticles);
         }
 
         [Fact]
@@ -36,15 +50,15 @@
             _ = new UpQuark();
             _ = new UpQuark();
 
-            var gluon = new Gluon();
+            _gluon = new Gluon();
 
-            TimerUtility.FireTimerAndWait(gluon.AttachQuarkAEvent);
-            TimerUtility.FireTimerAndWait(gluon.AttachQuarkBEvent);
+            TimerUtility.FireTimerAndWait(_gluon.AttachQuarkAEvent);
+            TimerUtility.FireTimerAndWait(_gluon.AttachQuarkBEvent);
 
-            Assert.NotNull(gluon.QuarkA);
-            Assert.NotNull(gluon.QuarkB);
-            Assert.True(gluon.QuarkA.HasAttractedToAnotherObject);
-            Assert.True(gluon.QuarkB.HasAttractedToAnotherObject);
+            Assert.NotNull(_gluon.QuarkA);
+            Assert.NotNull(_gluon.QuarkB);
+            Assert.True(_gluon.QuarkA.HasAttractedToAnotherObject);
+            Assert.True(_gluon.QuarkB.HasAttractedToAnotherObject);
         }
     }
 }

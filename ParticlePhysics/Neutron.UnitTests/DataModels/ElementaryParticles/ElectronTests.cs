@@ -3,7 +3,7 @@
     using SubatomicParticles.DataModels.ElementaryParticles;
     using Xunit;
 
-    public class ElectronTests : SubatomicParticleTest
+    public class ElectronTests
     {
         [Fact]
         public void CanMakeElectron()

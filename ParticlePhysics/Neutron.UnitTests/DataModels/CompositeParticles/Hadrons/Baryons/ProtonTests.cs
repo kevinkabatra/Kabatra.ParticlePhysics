@@ -4,7 +4,7 @@
     using SubatomicParticles.DataModels.CompositeParticles.Hadrons.Baryons;
     using Xunit;
 
-    public class ProtonTests : SubatomicParticleTest
+    public class ProtonTests
     {
         [Fact]
         public void CanMakeProton()

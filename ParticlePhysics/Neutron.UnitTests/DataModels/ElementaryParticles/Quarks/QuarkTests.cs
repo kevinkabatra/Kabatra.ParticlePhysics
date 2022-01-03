@@ -3,7 +3,7 @@
     using SubatomicParticles.DataModels.ElementaryParticles.Quarks;
     using Xunit;
 
-    public abstract class QuarkTests<T> : SubatomicParticleTest where T : Quark, new()
+    public abstract class QuarkTests<T> where T : Quark, new()
     {
         [Fact]
         public void QuarkIsAddedToUniverseUponCreation()
