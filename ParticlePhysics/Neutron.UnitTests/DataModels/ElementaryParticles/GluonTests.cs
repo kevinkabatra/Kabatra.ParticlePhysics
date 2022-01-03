@@ -3,6 +3,8 @@
     using System;
     using SubatomicParticles.DataModels.ElementaryParticles;
     using SubatomicParticles.DataModels.ElementaryParticles.Quarks;
+    using Universe.DataModels;
+    using Universe.Constants;
     using Utilities;
     using Xunit;
 
@@ -39,7 +41,7 @@
         public void GluonIsAddedToUniverseUponCreation()
         {
             _gluon = new Gluon();
-            var universe = Universe.DataModels.Universe.GetOrCreateInstance();
+            var universe = Universe.GetOrCreateInstance();
 
             Assert.Contains(_gluon, universe.SubatomicParticles);
         }
@@ -51,6 +53,8 @@
             _ = new UpQuark();
 
             _gluon = new Gluon();
+
+            Universe.GetOrCreateInstance().SetEpoch(Epoch.EndQuarkEpoch);
 
             TimerUtility.FireTimerAndWait(_gluon.AttachQuarkAEvent);
             TimerUtility.FireTimerAndWait(_gluon.AttachQuarkBEvent);
