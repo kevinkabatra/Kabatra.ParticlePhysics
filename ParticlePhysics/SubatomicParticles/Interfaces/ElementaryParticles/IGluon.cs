@@ -1,5 +1,7 @@
 ﻿namespace SubatomicParticles.Interfaces.ElementaryParticles
 {
+    using Quarks;
+
     /// <summary>
     ///     A gluon is an elementary particle that acts as the exchange particle (or gauge boson) for the
     /// strong force between quarks. It is analogous to the exchange of photons in the electromagnetic
@@ -17,5 +19,7 @@
     /// </remarks>
     public interface IGluon : IElementaryParticle
     {
+        IQuark QuarkA { get; set; }
+        IQuark QuarkB { get; set; }
     }
 }

@@ -13,6 +13,8 @@
             MassInKilograms = massInKilograms;
             MassInElectronVolts = massInElectronVolts;
 
+            HasAttractedToAnotherObject = false;
+
             // Add this new particle to the Universe
             var universe = Universe.DataModels.Universe.GetOrCreateInstance();
             universe.SubatomicParticles.Add(this);
@@ -22,5 +24,6 @@
         public double ChargeValue { get; }
         public double? MassInKilograms { get; }
         public double? MassInElectronVolts { get; }
+        public bool HasAttractedToAnotherObject { get; set; }
     }
 }

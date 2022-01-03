@@ -9,7 +9,6 @@
     using ElementaryParticles.Quarks;
     using Interfaces.ElementaryParticles;
     using Interfaces.ElementaryParticles.Quarks;
-    using Microsoft.VisualBasic;
 
     /// <summary>
     ///     The neutron is a subatomic particle which has a neutral charge and a mass slightly greater than that of a Proton.

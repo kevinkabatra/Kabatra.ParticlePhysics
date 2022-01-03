@@ -1,7 +1,6 @@
 ﻿namespace SubatomicParticles.DataModels.ElementaryParticles.Quarks
 {
     using Constants;
-    using Interfaces.ElementaryParticles;
     using Interfaces.ElementaryParticles.Quarks;
 
     /// <inheritdoc cref="IQuark"/>
