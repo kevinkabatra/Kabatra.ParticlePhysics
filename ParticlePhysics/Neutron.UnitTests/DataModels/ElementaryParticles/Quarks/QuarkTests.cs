@@ -13,5 +13,14 @@
 
             Assert.Contains(quark, universe.SubatomicParticles);
         }
+
+        [Fact]
+        public void CanTestEqualityOfQuarks()
+        {
+            var quarkA = new T();
+            var quarkB = new T();
+
+            Assert.Equal(quarkA, quarkB);
+        }
     }
 }

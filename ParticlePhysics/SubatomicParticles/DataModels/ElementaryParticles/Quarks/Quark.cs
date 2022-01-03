@@ -12,5 +12,24 @@
         }
 
         public QuarkFlavor QuarkFlavor { get; }
+
+        public override bool Equals(object objectToCompare)
+        {
+            if (objectToCompare is not Quark quarkToCompare) return false;
+
+            return 
+                QuarkFlavor.Equals(quarkToCompare.QuarkFlavor)
+                && Charge.Equals(quarkToCompare.Charge)
+                && ChargeValue.Equals(quarkToCompare.ChargeValue)
+                && MassInKilograms.Equals(quarkToCompare.MassInKilograms)
+                && MassInElectronVolts.Equals(quarkToCompare.MassInElectronVolts)
+                && HasAttractedToAnotherObject.Equals(quarkToCompare.HasAttractedToAnotherObject);
+        }
+
+        public override int GetHashCode()
+        {
+            var identifier = QuarkFlavor + Charge.ToString() + ChargeValue;
+            return identifier.GetHashCode();
+        }
     }
 }

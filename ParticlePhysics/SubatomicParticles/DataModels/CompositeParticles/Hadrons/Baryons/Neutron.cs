@@ -17,13 +17,6 @@
     /// </summary>
     public class Neutron : Baryon
     {
-        public static readonly ICollection<IQuark> ConstantComposition = new List<IQuark>
-        {
-            new UpQuark(),
-            new DownQuark(),
-            new DownQuark()
-        };
-
         public const ChargeType ConstantChargeType = ChargeType.Neutral;
         public const double ConstantChargeValue = 0d;
         public static readonly double ConstantMassInKilograms = 1.67492749804 * Math.Pow(10, -27);
@@ -33,8 +26,9 @@
 
         public Timer BetaDecayEvent;
 
-        public Neutron() : base(ConstantComposition, ConstantGluons, ConstantMassInKilograms, ConstantMassInElectronVolts)
+        public Neutron() : base(Neutron.ConstantComposition(), ConstantGluons, ConstantMassInKilograms, ConstantMassInElectronVolts)
         {
+            Console.WriteLine("This method is still called");
             SetBetaMinusDecayTimer();
         }
 
@@ -49,6 +43,16 @@
             }
 
             SetBetaMinusDecayTimer();
+        }
+
+        public static ICollection<IQuark> ConstantComposition()
+        {
+            return new List<IQuark>
+            {
+                new UpQuark(),
+                new DownQuark(),
+                new DownQuark()
+            };
         }
 
         /// <summary>

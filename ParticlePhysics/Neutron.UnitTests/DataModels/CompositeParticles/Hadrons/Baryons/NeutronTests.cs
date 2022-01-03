@@ -36,7 +36,7 @@
         [Fact]
         public void CanMakeNeutronFromQuarksAndGluons()
         {
-            _neutron = new Neutron(Neutron.ConstantComposition, Baryon.ConstantGluons);
+            _neutron = new Neutron(Neutron.ConstantComposition(), Baryon.ConstantGluons);
             ValidateNeutronCreation();
         }
 
@@ -78,11 +78,14 @@
         private void ValidateNeutronCreation()
         {
             Assert.NotNull(_neutron);
+
+            var quarks = Neutron.ConstantComposition().ToList();
             Assert.Collection(_neutron.Quarks,
-                firstQuark => Assert.Equal(Neutron.ConstantComposition.ToList()[0], firstQuark),
-                secondQuark => Assert.Equal(Neutron.ConstantComposition.ToList()[1], secondQuark),
-                thirdQuark => Assert.Equal(Neutron.ConstantComposition.ToList()[2], thirdQuark)
+                firstQuark => Assert.Equal(quarks[0], firstQuark),
+                secondQuark => Assert.Equal(quarks[1], secondQuark),
+                thirdQuark => Assert.Equal(quarks[2], thirdQuark)
             );
+
             Assert.Equal(Baryon.ConstantGluons.Count, _neutron.Gluons.Count());
             Assert.Equal(Neutron.ConstantChargeType, _neutron.Charge);
             Assert.Equal(Neutron.ConstantChargeValue, _neutron.ChargeValue);
