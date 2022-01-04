@@ -23,16 +23,16 @@
         public const double ConstantMassInElectronVolts = 939.56542052;
         public static readonly int ConstantBetaDecayTimeInSeconds = 879;
         public static readonly int ConstantBetaDecayTimeInMilliseconds = ConstantBetaDecayTimeInSeconds * 1000;
+        public static readonly Type ConstantTypeOfAntiparticle = typeof(Antineutron);
 
         public Timer BetaDecayEvent;
 
-        public Neutron() : base(Neutron.ConstantComposition(), ConstantGluons, ConstantMassInKilograms, ConstantMassInElectronVolts)
+        public Neutron() : base(Neutron.ConstantComposition(), ConstantGluons, ConstantMassInKilograms, ConstantMassInElectronVolts, ConstantTypeOfAntiparticle)
         {
-            Console.WriteLine("This method is still called");
             SetBetaMinusDecayTimer();
         }
 
-        public Neutron(ICollection<IQuark> quarks, ICollection<IGluon> gluons) : base(quarks, gluons, ConstantMassInKilograms, ConstantMassInElectronVolts)
+        public Neutron(ICollection<IQuark> quarks, ICollection<IGluon> gluons) : base(quarks, gluons, ConstantMassInKilograms, ConstantMassInElectronVolts, ConstantTypeOfAntiparticle)
         { 
             var numberOfUpQuarks = quarks.OfType<UpQuark>().Count();
             var numberOfDownQuarks = quarks.OfType<DownQuark>().Count();

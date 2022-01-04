@@ -8,7 +8,7 @@
     /// <inheritdoc cref="IHadron"/>
     public abstract class Hadron : CompositeParticle, IHadron
     {
-        protected Hadron(IEnumerable<IQuark> quarks, IEnumerable<IGluon> gluons, double? massInKilograms, double? massInElectronVolts) : base(quarks, gluons, massInKilograms, massInElectronVolts)
+        protected Hadron(IEnumerable<IQuark> quarks, IEnumerable<IGluon> gluons, double? massInKilograms, double? massInElectronVolts, System.Type typeOfAntiParticle) : base(quarks, gluons, massInKilograms, massInElectronVolts, typeOfAntiParticle)
         {
         }
     }

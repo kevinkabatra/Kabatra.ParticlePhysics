@@ -13,6 +13,7 @@
         double ChargeValue { get; }
         double? MassInKilograms { get; }
         double? MassInElectronVolts { get; }
+        System.Type TypeOfAntiparticle { get; }
         bool HasAttractedToAnotherObject { get; set; }
     }
 }

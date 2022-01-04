@@ -1,18 +1,19 @@
 ﻿namespace SubatomicParticles.DataModels
 {
+    using System;
     using Constants;
     using Interfaces;
 
     /// <inheritdoc cref="ISubatomicParticle"/>
     public abstract class SubatomicParticle : ISubatomicParticle
     {
-        protected SubatomicParticle(ChargeType charge, double chargeValue, double? massInKilograms, double? massInElectronVolts)
+        protected SubatomicParticle(ChargeType charge, double chargeValue, double? massInKilograms, double? massInElectronVolts, Type typeOfAntiparticle)
         {
             Charge = charge;
             ChargeValue = chargeValue;
             MassInKilograms = massInKilograms;
             MassInElectronVolts = massInElectronVolts;
-
+            TypeOfAntiparticle = typeOfAntiparticle;
             HasAttractedToAnotherObject = false;
 
             // Add this new particle to the Universe
@@ -24,6 +25,7 @@
         public double ChargeValue { get; }
         public double? MassInKilograms { get; }
         public double? MassInElectronVolts { get; }
+        public Type TypeOfAntiparticle { get; }
         public bool HasAttractedToAnotherObject { get; set; }
     }
 }

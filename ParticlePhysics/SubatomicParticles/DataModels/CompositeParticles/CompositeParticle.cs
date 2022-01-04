@@ -23,11 +23,12 @@
         /// if the n quarks do nothing at all.
         /// </remarks>
         [SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]
-        protected CompositeParticle(IEnumerable<IQuark> quarks, IEnumerable<IGluon> gluons, double? massInKilograms, double? massInElectronVolts) : base(
+        protected CompositeParticle(IEnumerable<IQuark> quarks, IEnumerable<IGluon> gluons, double? massInKilograms, double? massInElectronVolts,  System.Type typeOfAntiParticle) : base(
             GetChargeType(GetCharge(quarks)),
             GetCharge(quarks),
             massInKilograms,
-            massInElectronVolts
+            massInElectronVolts,
+            typeOfAntiParticle
         )
         {
             Quarks = quarks;
