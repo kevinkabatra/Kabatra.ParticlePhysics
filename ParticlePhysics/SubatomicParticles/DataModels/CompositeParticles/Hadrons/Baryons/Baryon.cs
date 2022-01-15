@@ -16,7 +16,7 @@
             new Gluon()
         };
 
-        protected Baryon(ICollection<IQuark> quarks, ICollection<IGluon> gluons, double? massInKilograms, double? massInElectronVolts, System.Type typeOfAntiparticle) : base(quarks, gluons, massInKilograms, massInElectronVolts, typeOfAntiparticle)
+        protected Baryon(ICollection<IQuark> quarks, ICollection<IGluon> gluons, double? massInKilograms, double? massInElectronVolts, Type typeOfAntiparticle) : base(quarks, gluons, massInKilograms, massInElectronVolts, typeOfAntiparticle)
         {
             if (quarks.Count < 3)
             {

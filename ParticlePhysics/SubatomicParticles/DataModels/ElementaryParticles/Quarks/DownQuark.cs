@@ -1,5 +1,6 @@
 ﻿namespace SubatomicParticles.DataModels.ElementaryParticles.Quarks
 {
+    using System;
     using Constants;
 
     /// <summary>
@@ -14,8 +15,9 @@
         public const ChargeType ConstantChargeType = ChargeType.Negative;
         public const double ConstantChargeValue = - (1d/3d);
         public const double ConstantMassInElectronVolts = 4.7;
+        public static readonly Type ConstantAntiparticleType = typeof(AntiDownQuark);
 
-        public DownQuark() : base(QuarkFlavor.Down, ConstantChargeType, ConstantChargeValue, ConstantMassInElectronVolts)
+        public DownQuark() : base(QuarkFlavor.Down, ConstantChargeType, ConstantChargeValue, ConstantMassInElectronVolts, ConstantAntiparticleType)
         {
         }
     }

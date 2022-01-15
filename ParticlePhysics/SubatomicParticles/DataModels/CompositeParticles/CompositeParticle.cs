@@ -1,5 +1,6 @@
 ﻿namespace SubatomicParticles.DataModels.CompositeParticles
 {
+    using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
@@ -23,7 +24,7 @@
         /// if the n quarks do nothing at all.
         /// </remarks>
         [SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]
-        protected CompositeParticle(IEnumerable<IQuark> quarks, IEnumerable<IGluon> gluons, double? massInKilograms, double? massInElectronVolts,  System.Type typeOfAntiParticle) : base(
+        protected CompositeParticle(IEnumerable<IQuark> quarks, IEnumerable<IGluon> gluons, double? massInKilograms, double? massInElectronVolts,  Type typeOfAntiParticle) : base(
             GetChargeType(GetCharge(quarks)),
             GetCharge(quarks),
             massInKilograms,
@@ -31,6 +32,11 @@
             typeOfAntiParticle
         )
         {
+            if (!ChargeValue.Equals(0) && !ChargeValue.Equals(1) && !ChargeValue.Equals(-1))
+            {
+                throw new Exception("A composite particle must have a charge value of -1, 0, or 1.");
+            }
+
             Quarks = quarks;
             Gluons = gluons;
         }

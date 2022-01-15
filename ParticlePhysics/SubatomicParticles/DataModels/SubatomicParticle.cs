@@ -13,7 +13,7 @@
             ChargeValue = chargeValue;
             MassInKilograms = massInKilograms;
             MassInElectronVolts = massInElectronVolts;
-            TypeOfAntiparticle = typeOfAntiparticle;
+            AntiparticleType = typeOfAntiparticle;
             HasAttractedToAnotherObject = false;
 
             // Add this new particle to the Universe
@@ -25,7 +25,7 @@
         public double ChargeValue { get; }
         public double? MassInKilograms { get; }
         public double? MassInElectronVolts { get; }
-        public Type TypeOfAntiparticle { get; }
+        public Type AntiparticleType { get; }
         public bool HasAttractedToAnotherObject { get; set; }
     }
 }

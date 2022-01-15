@@ -11,11 +11,12 @@
     public class Electron : ElementaryParticle
     {
         public const ChargeType ConstantChargeType = ChargeType.Negative;
-        public const double ConstantChargeValue = 1d;
+        public const double ConstantChargeValue = -1d;
         public static readonly double ConstantMassInKilograms = 9.1093837015 * Math.Pow(10, -31);
         public const double ConstantMassInElectronVolts = 0.51099895000;
+        public static readonly Type ConstantAntiparticleType = typeof(Positron);
 
-        public Electron() : base(ConstantChargeType, ConstantChargeValue, ConstantMassInKilograms, ConstantMassInElectronVolts)
+        public Electron() : base(ConstantChargeType, ConstantChargeValue, ConstantMassInKilograms, ConstantMassInElectronVolts, ConstantAntiparticleType)
         {
         }
     }

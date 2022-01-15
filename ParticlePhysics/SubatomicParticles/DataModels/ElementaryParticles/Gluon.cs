@@ -17,7 +17,7 @@
         public readonly Timer AttachQuarkAEvent;
         public readonly Timer AttachQuarkBEvent;
 
-        public Gluon() : base(ConstantChargeType, ConstantChargeValue, ConstantMassInKilograms, ConstantMassInElectronVolts)
+        public Gluon() : base(ConstantChargeType, ConstantChargeValue, ConstantMassInKilograms, ConstantMassInElectronVolts, typeof(Gluon))
         {
             AttachQuarkAEvent = new Timer(1000);
             AttachQuarkAEvent.Elapsed += FindAndAttachQuarkA;

@@ -23,16 +23,23 @@
         public const double ConstantMassInElectronVolts = 939.56542052;
         public static readonly int ConstantBetaDecayTimeInSeconds = 879;
         public static readonly int ConstantBetaDecayTimeInMilliseconds = ConstantBetaDecayTimeInSeconds * 1000;
-        public static readonly Type ConstantTypeOfAntiparticle = typeof(Antineutron);
+        public static readonly Type ConstantAntiparticleType = typeof(Antineutron);
+
+        public static readonly  ICollection<IQuark> ConstantComposition = new List<IQuark>
+        {
+            new UpQuark(),
+            new DownQuark(),
+            new DownQuark()
+        };
 
         public Timer BetaDecayEvent;
 
-        public Neutron() : base(Neutron.ConstantComposition(), ConstantGluons, ConstantMassInKilograms, ConstantMassInElectronVolts, ConstantTypeOfAntiparticle)
+        public Neutron() : base(Neutron.ConstantComposition, ConstantGluons, ConstantMassInKilograms, ConstantMassInElectronVolts, ConstantAntiparticleType)
         {
             SetBetaMinusDecayTimer();
         }
 
-        public Neutron(ICollection<IQuark> quarks, ICollection<IGluon> gluons) : base(quarks, gluons, ConstantMassInKilograms, ConstantMassInElectronVolts, ConstantTypeOfAntiparticle)
+        public Neutron(ICollection<IQuark> quarks, ICollection<IGluon> gluons) : base(quarks, gluons, ConstantMassInKilograms, ConstantMassInElectronVolts, ConstantAntiparticleType)
         { 
             var numberOfUpQuarks = quarks.OfType<UpQuark>().Count();
             var numberOfDownQuarks = quarks.OfType<DownQuark>().Count();
@@ -45,15 +52,7 @@
             SetBetaMinusDecayTimer();
         }
 
-        public static ICollection<IQuark> ConstantComposition()
-        {
-            return new List<IQuark>
-            {
-                new UpQuark(),
-                new DownQuark(),
-                new DownQuark()
-            };
-        }
+
 
         /// <summary>
         ///     Sets a timer for the beta minus decay of a neutron.

@@ -1,13 +1,19 @@
 ﻿namespace SubatomicParticles.DataModels.ElementaryParticles.Quarks
 {
+    using System;
     using Constants;
     using Interfaces.ElementaryParticles.Quarks;
 
     /// <inheritdoc cref="IQuark"/>
     public abstract class Quark : ElementaryParticle, IQuark
     {
-        protected Quark(QuarkFlavor quarkFlavor, ChargeType charge, double chargeValue, double massInElectronVolts) : base(charge, chargeValue, null, massInElectronVolts)
+        protected Quark(QuarkFlavor quarkFlavor, ChargeType charge, double chargeValue, double massInElectronVolts, Type antiparticle) : base(charge, chargeValue, null, massInElectronVolts, antiparticle)
         {
+            if (antiparticle.BaseType != typeof(Quark))
+            {
+                throw new ArgumentException("Antiparticle must extend Quark.");
+            }
+
             QuarkFlavor = quarkFlavor;
         }
 

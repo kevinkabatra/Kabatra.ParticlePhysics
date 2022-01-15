@@ -36,12 +36,12 @@
         [Fact]
         public void CanMakeNeutronFromQuarksAndGluons()
         {
-            _neutron = new Neutron(Neutron.ConstantComposition(), Baryon.ConstantGluons);
+            _neutron = new Neutron(Neutron.ConstantComposition, Baryon.ConstantGluons);
             ValidateNeutronCreation();
         }
 
         [Fact]
-        public void CannotMakeNeutronWithIncorrectQuarks()
+        public void CannotMakeNeutronWithIncorrectCharge()
         {
             var wrongQuarks = new List<IQuark>
             {
@@ -50,7 +50,13 @@
                 new UpQuark()
             };
 
-            Assert.Throws<ArgumentException>(() => _neutron = new Neutron(wrongQuarks, Baryon.ConstantGluons));
+            Assert.Throws<Exception>(() => new Neutron(wrongQuarks, Baryon.ConstantGluons));
+        }
+
+        [Fact]
+        public void CannotMakeNeutronWithIncorrectQuarks()
+        {
+            Assert.Throws<ArgumentException>(() => new Neutron(Proton.ConstantComposition, Baryon.ConstantGluons));
         }
 
         [Fact]
@@ -79,13 +85,14 @@
         {
             Assert.NotNull(_neutron);
 
-            var quarks = Neutron.ConstantComposition().ToList();
+            var quarks = Neutron.ConstantComposition.ToList();
             Assert.Collection(_neutron.Quarks,
                 firstQuark => Assert.Equal(quarks[0], firstQuark),
                 secondQuark => Assert.Equal(quarks[1], secondQuark),
                 thirdQuark => Assert.Equal(quarks[2], thirdQuark)
             );
 
+            Assert.Equal(Neutron.ConstantAntiparticleType, _neutron.AntiparticleType);
             Assert.Equal(Baryon.ConstantGluons.Count, _neutron.Gluons.Count());
             Assert.Equal(Neutron.ConstantChargeType, _neutron.Charge);
             Assert.Equal(Neutron.ConstantChargeValue, _neutron.ChargeValue);

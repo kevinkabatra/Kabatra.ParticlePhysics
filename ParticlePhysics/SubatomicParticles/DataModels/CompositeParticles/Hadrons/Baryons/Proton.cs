@@ -2,8 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Constants;
     using ElementaryParticles.Quarks;
+    using Interfaces.ElementaryParticles;
     using Interfaces.ElementaryParticles.Quarks;
 
     /// <summary>
@@ -13,6 +15,8 @@
     /// </summary>
     public class Proton : Baryon
     {
+        public static readonly Type ConstantAntiparticleType = typeof(Antiproton);
+
         public static readonly ICollection<IQuark> ConstantComposition = new List<IQuark>
         {
             new UpQuark(),
@@ -25,8 +29,19 @@
         public static readonly double ConstantMassInKilograms = 1.67262192369 * Math.Pow(10, -27);
         public const double ConstantMassInElectronVolts = 938.27208816;
 
-        public Proton() : base(ConstantComposition, ConstantGluons, ConstantMassInKilograms, ConstantMassInElectronVolts)
+        public Proton() : base(ConstantComposition, ConstantGluons, ConstantMassInKilograms, ConstantMassInElectronVolts, ConstantAntiparticleType)
         {
+        }
+
+        public Proton(ICollection<IQuark> quarks, ICollection<IGluon> gluons) : base(quarks, gluons, ConstantMassInKilograms, ConstantMassInElectronVolts, ConstantAntiparticleType)
+        {
+            var numberOfUpQuarks = quarks.OfType<UpQuark>().Count();
+            var numberOfDownQuarks = quarks.OfType<DownQuark>().Count();
+
+            if (numberOfUpQuarks != 2 && numberOfDownQuarks != 1)
+            {
+                throw new ArgumentException($"A Proton requires one (2) Up Quark and two (1) Down Quarks. This Proton contains {numberOfUpQuarks} Up Quarks and {numberOfDownQuarks} Down Quarks.");
+            }
         }
     }
 }
