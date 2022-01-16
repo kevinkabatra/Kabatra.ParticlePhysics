@@ -10,7 +10,7 @@
         public const double ConstantMassInElectronVolts = DownQuark.ConstantMassInElectronVolts;
         public static readonly Type ConstantAntiparticleType = typeof(DownQuark);
 
-        public AntiDownQuark() : base(QuarkFlavor.Up, ConstantChargeType, ConstantChargeValue, ConstantMassInElectronVolts, ConstantAntiparticleType)
+        public AntiDownQuark() : base(QuarkFlavor.Down, ConstantChargeType, ConstantChargeValue, ConstantMassInElectronVolts, ConstantAntiparticleType)
         {
         }
     }

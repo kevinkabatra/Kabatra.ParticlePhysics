@@ -10,13 +10,7 @@
         public void CanCreateUpQuark()
         {
             var upQuark = new UpQuark();
-
-            Assert.NotNull(upQuark);
-            Assert.Equal(QuarkFlavor.Up, upQuark.QuarkFlavor);
-            Assert.Equal(UpQuark.ConstantChargeType, upQuark.Charge);
-            Assert.Equal(UpQuark.ConstantChargeValue, upQuark.ChargeValue);
-            Assert.Equal(UpQuark.ConstantMassInElectronVolts, upQuark.MassInElectronVolts);
-            Assert.Null(upQuark.MassInKilograms);
+            ValidateQuarkCreation(upQuark, QuarkFlavor.Up, UpQuark.ConstantChargeType, UpQuark.ConstantChargeValue, UpQuark.ConstantMassInElectronVolts, UpQuark.ConstantAntiparticleType);
         }
     }
 }

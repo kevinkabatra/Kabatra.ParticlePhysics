@@ -29,7 +29,8 @@
                 && ChargeValue.Equals(quarkToCompare.ChargeValue)
                 && MassInKilograms.Equals(quarkToCompare.MassInKilograms)
                 && MassInElectronVolts.Equals(quarkToCompare.MassInElectronVolts)
-                && HasAttractedToAnotherObject.Equals(quarkToCompare.HasAttractedToAnotherObject);
+                && HasAttractedToAnotherObject.Equals(quarkToCompare.HasAttractedToAnotherObject)
+                && AntiparticleType == quarkToCompare.AntiparticleType;
         }
 
         public override int GetHashCode()
