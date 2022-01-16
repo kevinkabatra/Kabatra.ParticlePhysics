@@ -2,11 +2,17 @@
 {
     using System;
     using System.Collections.Generic;
+    using ElementaryParticles;
     using Interfaces.ElementaryParticles;
     using Interfaces.ElementaryParticles.Quarks;
 
     public class Meson : Hadron
     {
+        public static readonly ICollection<IGluon> ConstantGluons = new List<IGluon>
+        {
+            new Gluon(),
+        };
+
         public Meson(ICollection<IQuark> quarks, ICollection<IGluon> gluons, double? massInKilograms, double? massInElectronVolts, Type antiparticle) : base(quarks, gluons, massInKilograms, massInElectronVolts, antiparticle)
         {
             if (quarks.Count != 2)
