@@ -3,25 +3,16 @@
     using SubatomicParticles.DataModels.ElementaryParticles;
     using Xunit;
 
-    public class ElectronTests
+    public class ElectronTests : SubatomicParticleTests<Electron>
     {
-        [Fact]
-        public void CanMakeElectron()
+        /// <inheritdoc cref="SubatomicParticleTests{T}.ValidateCreation"/>
+        protected override void ValidateCreation(Electron particle)
         {
-            var electron = new Electron();
-
-            Assert.NotNull(electron);
-            Assert.Equal(Electron.ConstantChargeType, electron.Charge);
-            Assert.Equal(Electron.ConstantMassInKilograms, electron.MassInKilograms);
-        }
-
-        [Fact]
-        public void ElectronIsAddedToUniverseUponCreation()
-        {
-            var electron = new Electron();
-            var universe = Universe.DataModels.Universe.GetOrCreateInstance();
-
-            Assert.Contains(electron, universe.SubatomicParticles);
+            Assert.Equal(Electron.ConstantAntiparticleType, particle.AntiparticleType);
+            Assert.Equal(Electron.ConstantChargeType, particle.Charge);
+            Assert.Equal(Electron.ConstantChargeValue, particle.ChargeValue);
+            Assert.Equal(Electron.ConstantMassInKilograms, particle.MassInKilograms);
+            Assert.Equal(Electron.ConstantMassInElectronVolts, particle.MassInElectronVolts);
         }
     }
 }

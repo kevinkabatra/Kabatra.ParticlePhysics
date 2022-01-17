@@ -8,24 +8,19 @@
     using SubatomicParticles.DataModels.ElementaryParticles.Quarks;
     using Xunit;
 
-    public class ProtonTests
+    public class ProtonTests : CompositeParticleTests<Proton>
     {
+        /// <inheritdoc cref="CompositeParticleTests{T}.CanMakeParticleFromQuarksAndGluons"/>
         [Fact]
-        public void CanMakeProton()
-        {
-            var proton = new Proton();
-            ValidateProtonCreation(proton);
-        }
-
-        [Fact]
-        public void CanMakeProtonFromQuarksAndGluons()
+        public override void CanMakeParticleFromQuarksAndGluons()
         {
             var proton = new Proton(Proton.ConstantComposition, Baryon.ConstantGluons);
-            ValidateProtonCreation(proton);
+            ValidateCreation(proton);
         }
 
+        /// <inheritdoc cref="CompositeParticleTests{T}.CannotMakeParticleWithIncorrectCharge"/>
         [Fact]
-        public void CannotMakeNeutronWithIncorrectCharge()
+        public override void CannotMakeParticleWithIncorrectCharge()
         {
             var wrongQuarks = new List<IQuark>
             {
@@ -37,39 +32,29 @@
             Assert.Throws<Exception>(() => new Proton(wrongQuarks, Baryon.ConstantGluons));
         }
 
+        /// <inheritdoc cref="CompositeParticleTests{T}.CannotMakeParticleWithIncorrectQuarks"/>
         [Fact]
-        public void CannotMakeNeutronWithIncorrectQuarks()
+        public override void CannotMakeParticleWithIncorrectQuarks()
         {
             Assert.Throws<ArgumentException>(() => new Proton(Neutron.ConstantComposition, Baryon.ConstantGluons));
         }
 
-        [Fact]
-        public void ProtonIsAddedToUniverseUponCreation()
+        /// <inheritdoc cref="SubatomicParticleTests{T}.ValidateCreation"/>
+        protected override void ValidateCreation(Proton particle)
         {
-            var proton = new Proton();
-            var universe = Universe.DataModels.Universe.GetOrCreateInstance();
-
-            Assert.Contains(proton, universe.SubatomicParticles);
-        }
-
-        // ReSharper disable once SuggestBaseTypeForParameter
-        private static void ValidateProtonCreation(Proton proton)
-        {
-            Assert.NotNull(proton);
-
             var quarks = Proton.ConstantComposition.ToList();
-            Assert.Collection(proton.Quarks,
+            Assert.Collection(particle.Quarks,
                 firstQuark => Assert.Equal(quarks[0], firstQuark),
                 secondQuark => Assert.Equal(quarks[1], secondQuark),
                 thirdQuark => Assert.Equal(quarks[2], thirdQuark)
             );
 
-            Assert.Equal(Proton.ConstantAntiparticleType, proton.AntiparticleType);
-            Assert.Equal(Baryon.ConstantGluons.Count, proton.Gluons.Count());
-            Assert.Equal(Proton.ConstantChargeType, proton.Charge);
-            Assert.Equal(Proton.ConstantChargeValue, proton.ChargeValue);
-            Assert.Equal(Proton.ConstantMassInKilograms, proton.MassInKilograms);
-            Assert.Equal(Proton.ConstantMassInElectronVolts, proton.MassInElectronVolts);
+            Assert.Equal(Proton.ConstantAntiparticleType, particle.AntiparticleType);
+            Assert.Equal(Baryon.ConstantGluons.Count, particle.Gluons.Count());
+            Assert.Equal(Proton.ConstantChargeType, particle.Charge);
+            Assert.Equal(Proton.ConstantChargeValue, particle.ChargeValue);
+            Assert.Equal(Proton.ConstantMassInKilograms, particle.MassInKilograms);
+            Assert.Equal(Proton.ConstantMassInElectronVolts, particle.MassInElectronVolts);
         }
     }
 }

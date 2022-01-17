@@ -19,24 +19,21 @@
 
         public QuarkFlavor QuarkFlavor { get; }
 
+        /// <inheritdoc cref="SubatomicParticle.Equals(object)"/>
         public override bool Equals(object objectToCompare)
         {
+            if(!base.Equals(objectToCompare)) return false;
             if (objectToCompare is not Quark quarkToCompare) return false;
 
             return 
                 QuarkFlavor.Equals(quarkToCompare.QuarkFlavor)
-                && Charge.Equals(quarkToCompare.Charge)
-                && ChargeValue.Equals(quarkToCompare.ChargeValue)
-                && MassInKilograms.Equals(quarkToCompare.MassInKilograms)
-                && MassInElectronVolts.Equals(quarkToCompare.MassInElectronVolts)
-                && HasAttractedToAnotherObject.Equals(quarkToCompare.HasAttractedToAnotherObject)
                 && AntiparticleType == quarkToCompare.AntiparticleType;
         }
 
+        /// <inheritdoc cref="SubatomicParticle.GetHashCode"/>
         public override int GetHashCode()
         {
-            var identifier = QuarkFlavor + Charge.ToString() + ChargeValue;
-            return identifier.GetHashCode();
+            return base.GetHashCode();
         }
     }
 }

@@ -10,13 +10,15 @@
     using Utilities;
     using Xunit;
 
-    public class NeutronTests : IDisposable
+    public class NeutronTests : CompositeParticleTests<Neutron>, IDisposable
     {
         private Neutron _neutron;
 
+        /// <summary>
+        ///     Remove timer when object is no longer needed, otherwise it will pollute universe
+        /// </summary>
         public void Dispose()
         {
-            // Remove timer when object is no longer needed, otherwise it will pollute universe
             if (_neutron == null) return;
             _neutron.BetaDecayEvent.Dispose();
             _neutron = null;
@@ -26,22 +28,17 @@
             GC.SuppressFinalize(this);
         }
 
+        /// <inheritdoc cref="CompositeParticleTests{T}.CanMakeParticleFromQuarksAndGluons"/>
         [Fact]
-        public void CanMakeNeutron()
-        {
-            _neutron = new Neutron();
-            ValidateNeutronCreation();
-        }
-
-        [Fact]
-        public void CanMakeNeutronFromQuarksAndGluons()
+        public override void CanMakeParticleFromQuarksAndGluons()
         {
             _neutron = new Neutron(Neutron.ConstantComposition, Baryon.ConstantGluons);
-            ValidateNeutronCreation();
+            ValidateCreation(_neutron);
         }
 
+        /// <inheritdoc cref="CompositeParticleTests{T}.CannotMakeParticleWithIncorrectCharge"/>
         [Fact]
-        public void CannotMakeNeutronWithIncorrectCharge()
+        public override void CannotMakeParticleWithIncorrectCharge()
         {
             var wrongQuarks = new List<IQuark>
             {
@@ -53,8 +50,9 @@
             Assert.Throws<Exception>(() => new Neutron(wrongQuarks, Baryon.ConstantGluons));
         }
 
+        /// <inheritdoc cref="CompositeParticleTests{T}.CannotMakeParticleWithIncorrectQuarks"/>
         [Fact]
-        public void CannotMakeNeutronWithIncorrectQuarks()
+        public override void CannotMakeParticleWithIncorrectQuarks()
         {
             Assert.Throws<ArgumentException>(() => new Neutron(Proton.ConstantComposition, Baryon.ConstantGluons));
         }
@@ -72,32 +70,25 @@
             Assert.NotEmpty(universe.SubatomicParticles.OfType<Electron>());
         }
 
-        [Fact]
-        public void NeutronIsAddedToUniverseUponCreation()
+        /// <inheritdoc cref="SubatomicParticleTests{T}.ValidateCreation"/>
+        protected override void ValidateCreation(Neutron particle)
         {
-            _neutron = new Neutron();
-            var universe = Universe.DataModels.Universe.GetOrCreateInstance();
-
-            Assert.Contains(_neutron, universe.SubatomicParticles);
-        }
-
-        private void ValidateNeutronCreation()
-        {
-            Assert.NotNull(_neutron);
+            // Set this so that dispose can clean up at the end.
+            _neutron = particle;
 
             var quarks = Neutron.ConstantComposition.ToList();
-            Assert.Collection(_neutron.Quarks,
+            Assert.Collection(particle.Quarks,
                 firstQuark => Assert.Equal(quarks[0], firstQuark),
                 secondQuark => Assert.Equal(quarks[1], secondQuark),
                 thirdQuark => Assert.Equal(quarks[2], thirdQuark)
             );
 
-            Assert.Equal(Neutron.ConstantAntiparticleType, _neutron.AntiparticleType);
-            Assert.Equal(Baryon.ConstantGluons.Count, _neutron.Gluons.Count());
-            Assert.Equal(Neutron.ConstantChargeType, _neutron.Charge);
-            Assert.Equal(Neutron.ConstantChargeValue, _neutron.ChargeValue);
-            Assert.Equal(Neutron.ConstantMassInKilograms, _neutron.MassInKilograms);
-            Assert.Equal(Neutron.ConstantMassInElectronVolts, _neutron.MassInElectronVolts);
+            Assert.Equal(Neutron.ConstantAntiparticleType, particle.AntiparticleType);
+            Assert.Equal(Baryon.ConstantGluons.Count, particle.Gluons.Count());
+            Assert.Equal(Neutron.ConstantChargeType, particle.Charge);
+            Assert.Equal(Neutron.ConstantChargeValue, particle.ChargeValue);
+            Assert.Equal(Neutron.ConstantMassInKilograms, particle.MassInKilograms);
+            Assert.Equal(Neutron.ConstantMassInElectronVolts, particle.MassInElectronVolts);
         }
     }
 }

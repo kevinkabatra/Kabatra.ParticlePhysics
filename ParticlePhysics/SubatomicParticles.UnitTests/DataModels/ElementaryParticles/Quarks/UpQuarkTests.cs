@@ -2,15 +2,13 @@
 {
     using Constants;
     using SubatomicParticles.DataModels.ElementaryParticles.Quarks;
-    using Xunit;
 
     public class UpQuarkTests : QuarkTests<UpQuark>
     {
-        [Fact]
-        public void CanCreateUpQuark()
+        /// <inheritdoc cref="SubatomicParticleTests{T}.ValidateCreation"/>
+        protected override void ValidateCreation(UpQuark particle)
         {
-            var upQuark = new UpQuark();
-            ValidateQuarkCreation(upQuark, QuarkFlavor.Up, UpQuark.ConstantChargeType, UpQuark.ConstantChargeValue, UpQuark.ConstantMassInElectronVolts, UpQuark.ConstantAntiparticleType);
+            ValidateQuarkCreation(particle, QuarkFlavor.Up, UpQuark.ConstantChargeType, UpQuark.ConstantChargeValue, UpQuark.ConstantMassInElectronVolts, UpQuark.ConstantAntiparticleType);
         }
     }
 }
