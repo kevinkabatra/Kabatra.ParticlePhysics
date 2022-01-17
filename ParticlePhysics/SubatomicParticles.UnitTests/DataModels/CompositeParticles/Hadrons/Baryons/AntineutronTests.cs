@@ -1,11 +1,44 @@
 ﻿namespace SubatomicParticles.UnitTests.DataModels.CompositeParticles.Hadrons.Baryons
 {
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
+    using Interfaces.ElementaryParticles.Quarks;
     using SubatomicParticles.DataModels.CompositeParticles.Hadrons.Baryons;
+    using SubatomicParticles.DataModels.ElementaryParticles.Quarks;
     using Xunit;
 
-    public class AntineutronTests : SubatomicParticleTests<Antineutron>
+    public class AntineutronTests : CompositeParticleTests<Antineutron>
     {
+        /// <inheritdoc cref="CompositeParticleTests{T}.CanMakeParticleFromQuarksAndGluons"/>
+        [Fact]
+        public override void CanMakeParticleFromQuarksAndGluons()
+        {
+            var antineutron = new Antineutron(Antineutron.ConstantComposition, Baryon.ConstantGluons);
+            ValidateCreation(antineutron);
+        }
+
+        /// <inheritdoc cref="CompositeParticleTests{T}.CannotMakeParticleWithIncorrectCharge"/>
+        [Fact]
+        public override void CannotMakeParticleWithIncorrectCharge()
+        {
+            var wrongQuarks = new List<IQuark>
+            {
+                new UpQuark(),
+                new UpQuark(),
+                new UpQuark()
+            };
+
+            Assert.Throws<Exception>(() => new Antineutron(wrongQuarks, Baryon.ConstantGluons));
+        }
+
+        /// <inheritdoc cref="CompositeParticleTests{T}.CannotMakeParticleWithIncorrectQuarks"/>
+        [Fact]
+        public override void CannotMakeParticleWithIncorrectQuarks()
+        {
+            Assert.Throws<ArgumentException>(() => new Antineutron(Neutron.ConstantComposition, Baryon.ConstantGluons));
+        }
+
         /// <inheritdoc cref="SubatomicParticleTests{T}.ValidateCreation"/>
         protected override void ValidateCreation(Antineutron particle)
         {

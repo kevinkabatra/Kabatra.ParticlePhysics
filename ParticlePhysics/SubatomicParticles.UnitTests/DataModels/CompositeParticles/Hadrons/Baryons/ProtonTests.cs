@@ -36,7 +36,7 @@
         [Fact]
         public override void CannotMakeParticleWithIncorrectQuarks()
         {
-            Assert.Throws<ArgumentException>(() => new Proton(Neutron.ConstantComposition, Baryon.ConstantGluons));
+            Assert.Throws<ArgumentException>(() => new Proton(Antiproton.ConstantComposition, Baryon.ConstantGluons));
         }
 
         /// <inheritdoc cref="SubatomicParticleTests{T}.ValidateCreation"/>

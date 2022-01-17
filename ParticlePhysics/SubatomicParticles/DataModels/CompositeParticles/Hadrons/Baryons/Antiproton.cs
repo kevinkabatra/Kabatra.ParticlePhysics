@@ -2,8 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Constants;
     using ElementaryParticles.Quarks;
+    using Interfaces.ElementaryParticles;
     using Interfaces.ElementaryParticles.Quarks;
 
     public class Antiproton : Baryon
@@ -23,6 +25,17 @@
 
         public Antiproton() : base(ConstantComposition, ConstantGluons, ConstantMassInKilograms, ConstantMassInElectronVolts, ConstantAntiparticleType)
         {
+        }
+
+        public Antiproton(ICollection<IQuark> quarks, ICollection<IGluon> gluons) : base(quarks, gluons, ConstantMassInKilograms, ConstantMassInElectronVolts, ConstantAntiparticleType)
+        {
+            var numberOfAntiUpQuarks = quarks.OfType<AntiUpQuark>().Count();
+            var numberOfAntiDownQuarks = quarks.OfType<AntiDownQuark>().Count();
+
+            if (numberOfAntiUpQuarks != 2 && numberOfAntiDownQuarks != 1)
+            {
+                throw new ArgumentException($"A Proton requires one (2) AntiUp Quark and two (1) AntiDown Quarks. This Proton contains {numberOfAntiUpQuarks} AntiUp Quarks and {numberOfAntiDownQuarks} AntiDown Quarks.");
+            }
         }
     }
 }

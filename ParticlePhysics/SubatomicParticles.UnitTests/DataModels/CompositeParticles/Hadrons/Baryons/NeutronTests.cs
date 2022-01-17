@@ -54,7 +54,7 @@
         [Fact]
         public override void CannotMakeParticleWithIncorrectQuarks()
         {
-            Assert.Throws<ArgumentException>(() => new Neutron(Proton.ConstantComposition, Baryon.ConstantGluons));
+            Assert.Throws<ArgumentException>(() => new Neutron(Antineutron.ConstantComposition, Baryon.ConstantGluons));
         }
 
         [Fact]
