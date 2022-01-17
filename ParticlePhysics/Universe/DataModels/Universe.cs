@@ -3,32 +3,37 @@
     using System;
     using System.Collections.Generic;
     using Constants;
+    using Interfaces;
     using Kabatra.Common.Singleton;
 
-    /// <summary>
-    ///     All of space and time and their contents.
-    /// <para>All of the subatomic particles that are created are added to the universe upon creation.
-    /// The universe is a singleton object as there is only one universe in real-life.</para>
-    /// <para>See the following articles for more information:</para>
-    /// <para>1. <a href="https://en.wikipedia.org/wiki/Universe">Wikipedia: Universe</a></para>
-    /// <para>2. <a href="https://lco.global/spacebook/cosmology/early-universe/">The Early Universe</a></para>
-    /// </summary>
-    public class Universe : SingletonBase<Universe>
+    /// <inheritdoc cref="IUniverse"/>
+    public class Universe : SingletonBase<Universe>, IUniverse
     {
         public List<object> SubatomicParticles;
 
+        public const Epoch ConstantUniverseFirstEpoch = Epoch.PlanckEpoch;
+        public static readonly double ConstantUniverseFirstTemperatureInKelvin = Math.Pow(10, 32);
+        public static readonly double ConstantUniverseFirstTimeInSeconds = Math.Pow(10, -43);
+
+        /// <inheritdoc cref="IUniverse"/>
         public Universe()
         {
             SubatomicParticles = new List<object>();
-            Epoch = Epoch.PlanckEpoch;
-            TemperatureInKelvin = Math.Pow(10, 32);
-            TimeInSeconds = Math.Pow(10, -43);
+            Epoch = ConstantUniverseFirstEpoch;
+            TemperatureInKelvin = ConstantUniverseFirstTemperatureInKelvin;
+            TimeInSeconds = ConstantUniverseFirstTimeInSeconds;
         }
 
+        /// <inheritdoc cref="IUniverse.Epoch"/>
         public Epoch Epoch { get; private set; }
+        
+        /// <inheritdoc cref="IUniverse.TemperatureInKelvin"/>
         public double TemperatureInKelvin { get; private set; }
+
+        /// <inheritdoc cref="IUniverse.TimeInSeconds"/>
         public double TimeInSeconds { get; private set; }
 
+        /// <inheritdoc cref="IUniverse.NextEpoch"/>
         public void NextEpoch()
         {
             var currentEpochAsInt = (int) Epoch;
@@ -37,12 +42,16 @@
             SetPropertiesBasedOnEpoch();
         }
 
+        /// <inheritdoc cref="IUniverse.SetEpoch"/>
         public void SetEpoch(Epoch epoch)
         {
             Epoch = epoch;
             SetPropertiesBasedOnEpoch();
         }
 
+        /// <summary>
+        ///     Updates the temperature and time based on the epoch.
+        /// </summary>
         private void SetPropertiesBasedOnEpoch()
         {
             switch (Epoch)

@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SubatomicParticles\SubatomicParticles.csproj" />
+    <ProjectReference Include="..\Universe.UnitTests\Universe.UnitTests.csproj" />
   </ItemGroup>
 
 </Project>

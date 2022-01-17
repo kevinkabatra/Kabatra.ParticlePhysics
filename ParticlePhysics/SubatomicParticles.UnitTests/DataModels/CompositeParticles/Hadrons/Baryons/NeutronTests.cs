@@ -2,11 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
+    using Interfaces.ElementaryParticles;
     using Interfaces.ElementaryParticles.Quarks;
     using SubatomicParticles.DataModels.CompositeParticles.Hadrons.Baryons;
     using SubatomicParticles.DataModels.ElementaryParticles;
     using SubatomicParticles.DataModels.ElementaryParticles.Quarks;
+    using Universe.UnitTests.Utilities;
     using Utilities;
     using Xunit;
 
@@ -34,6 +37,35 @@
         {
             _neutron = new Neutron(Neutron.ConstantComposition, Baryon.ConstantGluons);
             ValidateCreation(_neutron);
+        }
+
+        /// <inheritdoc cref="CompositeParticleTests{T}.CanMakeParticleFromQuarksAndGluonsAndNotHaveErroneousExtraParticles"/>
+        [Fact]
+        public override void CanMakeParticleFromQuarksAndGluonsAndNotHaveErroneousExtraParticles()
+        {
+            var quarks = new List<IQuark>
+            {
+                new UpQuark(),
+                new DownQuark(),
+                new DownQuark()
+            };
+
+            var gluons = new List<IGluon>
+            {
+                new Gluon(),
+                new Gluon()
+            };
+
+            // ToDo: Need to update this to GetUniverse, and then move this logic into the Universe project.
+            // ToDo: The SubatomicParticle code will need to reference IUniverse when adding a particle.
+            // ToDo: I think I can achieve this with GetUniverse, which will replace GetOrCreateInstance.
+            // ToDo: The tests will need to create two different universes. The current singleton for normal tests, and the nonsingleton for isolated tests.
+            // ToDo: The program will use Autofac to say that the Universe will use DataModels.Universe from Universe project.
+            var isolatedUniverse = new UniverseUtility().GetNonSingletonUniverse();
+
+            _neutron = new Neutron(quarks, gluons);
+
+
         }
 
         /// <inheritdoc cref="CompositeParticleTests{T}.CannotMakeParticleWithIncorrectCharge"/>
