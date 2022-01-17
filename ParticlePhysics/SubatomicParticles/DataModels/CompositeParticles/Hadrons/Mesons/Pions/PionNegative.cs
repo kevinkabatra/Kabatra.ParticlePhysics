@@ -33,7 +33,7 @@
 
             if (numberOfDownQuarks != 1 && numberOfAntiUpQuarks != 1)
             {
-                throw new ArgumentException($"A Negative Pion requires one (1) Down Quark and two (1) AntiUp Quarks. This Negative Pion contains {numberOfDownQuarks} Down Quarks and {numberOfAntiUpQuarks} AntiUp Quarks.");
+                throw new ArgumentException($"A Negative Pion requires one (1) Down Quark and one (1) AntiUp Quark. This Negative Pion contains {numberOfDownQuarks} Down Quarks and {numberOfAntiUpQuarks} AntiUp Quarks.");
             }
         }
     }
