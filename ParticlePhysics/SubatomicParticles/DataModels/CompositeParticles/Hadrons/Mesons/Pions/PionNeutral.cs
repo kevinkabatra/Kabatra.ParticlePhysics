@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Constants;
     using ElementaryParticles.Quarks;
     using Interfaces.ElementaryParticles;
@@ -27,8 +28,22 @@
             new AntiDownQuark()
         };
 
+        public PionNeutral() : base(ConstantCompositionUpQuarks, ConstantGluons, ConstantMassInElectronVolts, ConstantAntiparticleType)
+        {
+        }
+
         public PionNeutral(ICollection<IQuark> quarks, ICollection<IGluon> gluons) : base(quarks, gluons, ConstantMassInElectronVolts, ConstantAntiparticleType)
         {
+            var numberOfUpQuarks = quarks.OfType<UpQuark>().Count();
+            var numberOfDownQuarks = quarks.OfType<DownQuark>().Count();
+            var numberOfAntiUpQuarks = quarks.OfType<AntiUpQuark>().Count();
+            var numberOfAntiDownQuarks = quarks.OfType<AntiDownQuark>().Count();
+
+            var compositionIsCorrect = numberOfUpQuarks == 1 && numberOfAntiUpQuarks == 1 || numberOfDownQuarks == 1 && numberOfAntiDownQuarks == 1;
+            if (compositionIsCorrect == false)
+            {
+                throw new ArgumentException($"A Neutral Pion requires either one of the following configurations: 1: one (1) Up Quark and one (1) AntiUp Quark 2: one (1) Down Quark and one (1) AntiDown Quark. This Neutral Pion contains 1: {numberOfUpQuarks} Up Quarks and {numberOfAntiUpQuarks} AntiUp Quarks, 2: {numberOfDownQuarks} Down Quarks and {numberOfAntiDownQuarks} AntiDown Quarks.");
+            }
         }
 
         public static PionNeutral PionNeutralUpQuarkComposition()
