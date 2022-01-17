@@ -39,7 +39,7 @@
 
             if (numberOfUpQuarks != 2 && numberOfDownQuarks != 1)
             {
-                throw new ArgumentException($"A Proton requires two (2) Up Quark and one (1) Down Quarks. This Proton contains {numberOfUpQuarks} Up Quarks and {numberOfDownQuarks} Down Quarks.");
+                throw new ArgumentException($"A Proton requires two (2) Up Quark and one (1) Down Quark. This Proton contains {numberOfUpQuarks} Up Quarks and {numberOfDownQuarks} Down Quarks.");
             }
         }
     }

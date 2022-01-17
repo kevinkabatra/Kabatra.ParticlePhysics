@@ -34,7 +34,7 @@
 
             if (numberOfAntiUpQuarks != 2 && numberOfAntiDownQuarks != 1)
             {
-                throw new ArgumentException($"A Antiproton requires two (2) AntiUp Quark and one (1) AntiDown Quarks. This Antiproton contains {numberOfAntiUpQuarks} AntiUp Quarks and {numberOfAntiDownQuarks} AntiDown Quarks.");
+                throw new ArgumentException($"A Antiproton requires two (2) AntiUp Quark and one (1) AntiDown Quark. This Antiproton contains {numberOfAntiUpQuarks} AntiUp Quarks and {numberOfAntiDownQuarks} AntiDown Quarks.");
             }
         }
     }
