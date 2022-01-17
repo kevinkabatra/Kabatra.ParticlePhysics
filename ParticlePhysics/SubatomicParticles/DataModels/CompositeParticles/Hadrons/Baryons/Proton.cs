@@ -15,6 +15,10 @@
     /// </summary>
     public class Proton : Baryon
     {
+        public const ChargeType ConstantChargeType = ChargeType.Positive;
+        public const double ConstantChargeValue = 1d;
+        public static readonly double ConstantMassInKilograms = 1.67262192369 * Math.Pow(10, -27);
+        public const double ConstantMassInElectronVolts = 938.27208816;
         public static readonly Type ConstantAntiparticleType = typeof(Antiproton);
 
         public static readonly ICollection<IQuark> ConstantComposition = new List<IQuark>
@@ -23,11 +27,6 @@
             new UpQuark(),
             new DownQuark()
         };
-
-        public const ChargeType ConstantChargeType = ChargeType.Positive;
-        public const double ConstantChargeValue = 1d;
-        public static readonly double ConstantMassInKilograms = 1.67262192369 * Math.Pow(10, -27);
-        public const double ConstantMassInElectronVolts = 938.27208816;
 
         public Proton() : base(ConstantComposition, ConstantGluons, ConstantMassInKilograms, ConstantMassInElectronVolts, ConstantAntiparticleType)
         {

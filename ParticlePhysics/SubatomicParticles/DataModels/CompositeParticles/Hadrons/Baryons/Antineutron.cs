@@ -3,25 +3,27 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Constants;
     using ElementaryParticles.Quarks;
     using Interfaces.ElementaryParticles;
     using Interfaces.ElementaryParticles.Quarks;
 
     public class Antineutron : Baryon
     {
+        public const ChargeType ConstantChargeType = ChargeType.Neutral;
+        public const double ConstantChargeValue = 0d;
+        public static readonly double ConstantMassInKilograms = Neutron.ConstantMassInKilograms;
+        public const double ConstantMassInElectronVolts = Neutron.ConstantMassInElectronVolts;
         public static readonly Type ConstantAntiparticleType = typeof(Neutron);
 
-        public static ICollection<IQuark> ConstantComposition()
+        public static readonly ICollection<IQuark> ConstantComposition = new List<IQuark>
         {
-            return new List<IQuark>
-            {
-                new AntiUpQuark(),
-                new AntiDownQuark(),
-                new AntiDownQuark()
-            };
-        }
+            new AntiUpQuark(),
+            new AntiDownQuark(),
+            new AntiDownQuark()
+        };
 
-        public Antineutron() : base(ConstantComposition(), ConstantGluons, Neutron.ConstantMassInKilograms, Neutron.ConstantMassInElectronVolts, ConstantAntiparticleType)
+        public Antineutron() : base(ConstantComposition, ConstantGluons, Neutron.ConstantMassInKilograms, Neutron.ConstantMassInElectronVolts, ConstantAntiparticleType)
         {
         }
 
