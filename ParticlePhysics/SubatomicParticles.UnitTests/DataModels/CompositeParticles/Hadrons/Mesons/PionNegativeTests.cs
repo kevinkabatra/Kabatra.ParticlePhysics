@@ -15,8 +15,8 @@
         [Fact]
         public override void CanMakeParticleFromQuarksAndGluons()
         {
-            var proton = new PionNegative(PionNegative.ConstantComposition, Meson.ConstantGluons);
-            ValidateCreation(proton);
+            var pionNegative = new PionNegative(PionNegative.ConstantComposition, Meson.ConstantGluons);
+            ValidateCreation(pionNegative);
         }
 
         /// <inheritdoc cref="CompositeParticleTests{T}.CannotMakeParticleWithIncorrectCharge"/>
