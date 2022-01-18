@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Universe.UnitTests", "Unive
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubatomicParticles.UnitTests", "SubatomicParticles.UnitTests\SubatomicParticles.UnitTests.csproj", "{D28BE09D-C696-48A3-8884-029E58155676}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatterCreation", "MatterCreation\MatterCreation.csproj", "{218C82C0-C753-4924-BC14-BEBE5BEC93D0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{D28BE09D-C696-48A3-8884-029E58155676}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D28BE09D-C696-48A3-8884-029E58155676}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D28BE09D-C696-48A3-8884-029E58155676}.Release|Any CPU.Build.0 = Release|Any CPU
+		{218C82C0-C753-4924-BC14-BEBE5BEC93D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{218C82C0-C753-4924-BC14-BEBE5BEC93D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{218C82C0-C753-4924-BC14-BEBE5BEC93D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{218C82C0-C753-4924-BC14-BEBE5BEC93D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

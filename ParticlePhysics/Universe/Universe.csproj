@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.3.0" />
     <PackageReference Include="Kabatra.Common.Singleton" Version="1.0.0" />
   </ItemGroup>
 

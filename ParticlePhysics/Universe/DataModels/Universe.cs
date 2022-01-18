@@ -26,7 +26,10 @@
 
         /// <inheritdoc cref="IUniverse.Epoch"/>
         public Epoch Epoch { get; private set; }
-        
+
+        /// <inheritdoc cref="IUniverse.Get"/>
+        public IUniverse Get => Universe.GetOrCreateInstance();
+
         /// <inheritdoc cref="IUniverse.TemperatureInKelvin"/>
         public double TemperatureInKelvin { get; private set; }
 

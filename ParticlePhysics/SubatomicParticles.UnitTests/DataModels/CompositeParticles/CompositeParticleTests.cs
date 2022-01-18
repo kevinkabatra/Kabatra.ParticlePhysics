@@ -27,7 +27,8 @@
         /// and Gluons each time. So in theory you could use the same Quarks and Gluons
         /// to make an infinite number of composite particles.
         /// </summary>
-        public abstract void CanMakeParticleFromQuarksAndGluonsAndNotHaveErroneousExtraParticles();
+        //ToDo: implement
+        //public abstract void CanMakeParticleFromQuarksAndGluonsAndNotHaveErroneousExtraParticles();
 
         /// <summary>
         ///     All composite particles have a charge of -1, 0, or 1, this

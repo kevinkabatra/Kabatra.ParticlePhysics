@@ -3,6 +3,43 @@
     using System;
     using Constants;
     using Interfaces;
+    using MatterCreation;
+
+    /// <summary>
+    /// https://refactoring.guru/design-patterns/abstract-factory
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public interface ISubatomicParticleCreator<T> where T : ISubatomicParticle
+    {
+        ISubatomicParticle Create();
+    }
+
+    /// <summary>
+    /// https://stackoverflow.com/questions/8243923/c-sharp-constructor-event\
+    /// https://stackoverflow.com/questions/119506/virtual-member-call-in-a-constructor
+    /// https://refactoring.guru/design-patterns/factory-method
+    /// </summary>
+    public abstract class SubatomicParticleCreator<T>: ISubatomicParticleCreator<T> where T : ISubatomicParticle
+    {
+        // This event will fire whenever a subatomic particle is created, the Universe will listen for this event, and will add the particle to the Universe.
+        public event EventHandler<MatterCreationEvent> MatterCreation;
+
+        public abstract ISubatomicParticle Create();
+
+        /// <summary>
+        ///     This will need to be called on each derived class of subatomic particle after Create is complete.
+        /// </summary>
+        /// <param name="matterCreationEvent"></param>
+        protected virtual void TriggerMatterCreationEvent(MatterCreationEvent matterCreationEvent)
+        {
+            // Make a temporary copy of the event to avoid possibility of a race condition if the last subscriber unsubscribes
+            // immediately after the null check and before the event is raised.
+            var temporaryEvent = MatterCreation;
+
+            // Event will be null if there are no subscribers
+            temporaryEvent?.Invoke(this, matterCreationEvent);
+        }
+    }
 
     /// <inheritdoc cref="ISubatomicParticle"/>
     public abstract class SubatomicParticle : ISubatomicParticle
@@ -13,7 +50,7 @@
         public double? MassInElectronVolts { get; }
         public Type AntiparticleType { get; }
         public bool HasAttractedToAnotherObject { get; set; }
-
+        
         protected SubatomicParticle(ChargeType charge, double chargeValue, double? massInKilograms, double? massInElectronVolts, Type typeOfAntiparticle)
         {
             Charge = charge;
@@ -22,10 +59,6 @@
             MassInElectronVolts = massInElectronVolts;
             AntiparticleType = typeOfAntiparticle;
             HasAttractedToAnotherObject = false;
-
-            // Add this new particle to the Universe
-            var universe = Universe.DataModels.Universe.GetOrCreateInstance();
-            universe.SubatomicParticles.Add(this);
         }
 
         /// <summary>

@@ -1,18 +1,27 @@
 ﻿namespace SubatomicParticles.UnitTests.DataModels
 {
+    using Interfaces;
     using SubatomicParticles.DataModels;
     using Xunit;
 
-    public abstract class SubatomicParticleTests<T> where T : SubatomicParticle, new()
+    public abstract class SubatomicParticleTests<TParticle, TParticleCreator> where TParticle : ISubatomicParticle, new() where TParticleCreator : ISubatomicParticleCreator<TParticle>, new()
     {
         /// <summary>
-        ///     Validates that a particle can be created.
+        ///     Validates that a particle can be created, this is how the creator will create the particles.
         /// </summary>
         [Fact]
         public void CanMakeParticle()
         {
-            var particle = new T();
+            var particle = new TParticle();
             Assert.NotNull(particle);
+            ValidateCreation(particle);
+        }
+
+        [Fact]
+        public void CanMakeParticleWithCreator()
+        {
+            var particleCreator = new TParticleCreator();
+            var particle = (TParticle) particleCreator.Create();
             ValidateCreation(particle);
         }
 
@@ -22,8 +31,8 @@
         [Fact]
         public void CanTestEqualityOfParticles()
         {
-            var particleA = new T();
-            var particleB = new T();
+            var particleA = new TParticle();
+            var particleB = new TParticle();
 
             Assert.Equal(particleA, particleB);
         }
@@ -34,7 +43,7 @@
         [Fact]
         public void ParticleIsAddedToUniverseUponCreation()
         {
-            var particle = new T();
+            var particle = new TParticle();
             var universe = Universe.DataModels.Universe.GetOrCreateInstance();
 
             Assert.Contains(particle, universe.SubatomicParticles);
@@ -44,6 +53,6 @@
         ///     Test against expected constants to validate that the particle was created correctly.
         /// </summary>
         /// <param name="particle">The particle to be tested.</param>
-        protected abstract void ValidateCreation(T particle);
+        protected abstract void ValidateCreation(TParticle particle);
     }
 }

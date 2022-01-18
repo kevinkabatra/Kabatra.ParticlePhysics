@@ -25,6 +25,8 @@
         /// <inheritdoc cref="IUniverse.Epoch"/>
         public Epoch Epoch { get; private set; }
 
+        public IUniverse Get => new NonSingletonUniverse();
+
         /// <inheritdoc cref="IUniverse.TemperatureInKelvin"/>
         public double TemperatureInKelvin { get; private set; }
 

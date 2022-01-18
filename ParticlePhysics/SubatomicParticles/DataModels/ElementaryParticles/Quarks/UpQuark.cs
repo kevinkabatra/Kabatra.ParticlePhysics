@@ -2,6 +2,8 @@
 {
     using System;
     using Constants;
+    using Interfaces;
+    using MatterCreation;
 
     /// <summary>
     ///     The up quark or u quark (symbol: u) is the lightest of all quarks, a type of elementary particle,
@@ -19,6 +21,18 @@
 
         public UpQuark() : base(QuarkFlavor.Up, ConstantChargeType, ConstantChargeValue, ConstantMassInElectronVolts, ConstantAntiparticleType)
         {
+        }
+    }
+
+    /// <inheritdoc cref="SubatomicParticleCreator{T}"/>
+    public class UpQuarkCreator : SubatomicParticleCreator<UpQuark>
+    {
+        public override ISubatomicParticle Create()
+        {
+            var upQuark = new UpQuark();
+            TriggerMatterCreationEvent(new MatterCreationEvent(upQuark));
+
+            return upQuark;
         }
     }
 }

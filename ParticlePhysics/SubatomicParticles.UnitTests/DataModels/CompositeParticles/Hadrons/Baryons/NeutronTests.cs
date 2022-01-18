@@ -39,6 +39,7 @@
             ValidateCreation(_neutron);
         }
 
+        /*
         /// <inheritdoc cref="CompositeParticleTests{T}.CanMakeParticleFromQuarksAndGluonsAndNotHaveErroneousExtraParticles"/>
         [Fact]
         public override void CanMakeParticleFromQuarksAndGluonsAndNotHaveErroneousExtraParticles()
@@ -64,9 +65,8 @@
             var isolatedUniverse = new UniverseUtility().GetNonSingletonUniverse();
 
             _neutron = new Neutron(quarks, gluons);
-
-
         }
+        */
 
         /// <inheritdoc cref="CompositeParticleTests{T}.CannotMakeParticleWithIncorrectCharge"/>
         [Fact]
