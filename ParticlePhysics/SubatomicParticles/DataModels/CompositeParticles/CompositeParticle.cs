@@ -5,6 +5,7 @@
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Constants;
+    using Interfaces;
     using Interfaces.CompositeParticles;
     using Interfaces.ElementaryParticles;
     using Interfaces.ElementaryParticles.Quarks;
@@ -58,5 +59,16 @@
                 _ => ChargeType.Negative
             };
         }
+    }
+
+    public abstract class CompositeParticleCreator<T> : SubatomicParticleCreator<T> where T : ISubatomicParticle, new()
+    {
+        /// <summary>
+        ///     Creates a subatomic particle of the specified type, with specific Quarks and Gluons, and triggers the MatterCreationEvent.
+        /// </summary>
+        /// <param name="quarks">The Quarks that will form the particle.</param>
+        /// <param name="gluons">The Gluons that will hold the Quarks together.</param>
+        /// <returns></returns>
+        public abstract ISubatomicParticle Create(ICollection<IQuark> quarks, ICollection<IGluon> gluons);
     }
 }

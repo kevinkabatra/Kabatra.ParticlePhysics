@@ -2,6 +2,8 @@
 {
     using System;
     using Constants;
+    using Interfaces;
+    using MatterCreation;
 
     /// <summary>
     ///     The down quark or d quark (symbol: d) is the second-lightest of all quarks, a type of elementary particle,
@@ -19,6 +21,18 @@
 
         public DownQuark() : base(QuarkFlavor.Down, ConstantChargeType, ConstantChargeValue, ConstantMassInElectronVolts, ConstantAntiparticleType)
         {
+        }
+    }
+
+    /// <inheritdoc cref="SubatomicParticleCreator{T}"/>
+    public class DownQuarkCreator : SubatomicParticleCreator<DownQuark>
+    {
+        public override ISubatomicParticle Create()
+        {
+            var downQuark = new DownQuark();
+            TriggerMatterCreationEvent(new MatterCreationEvent(downQuark));
+
+            return downQuark;
         }
     }
 }

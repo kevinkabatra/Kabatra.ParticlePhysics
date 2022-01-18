@@ -2,6 +2,8 @@
 {
     using System;
     using Constants;
+    using Interfaces;
+    using MatterCreation;
 
     public class AntiDownQuark : Quark
     {
@@ -12,6 +14,18 @@
 
         public AntiDownQuark() : base(QuarkFlavor.Down, ConstantChargeType, ConstantChargeValue, ConstantMassInElectronVolts, ConstantAntiparticleType)
         {
+        }
+    }
+
+    /// <inheritdoc cref="SubatomicParticleCreator{T}"/>
+    public class AntiDownQuarkCreator : SubatomicParticleCreator<AntiDownQuark>
+    {
+        public override ISubatomicParticle Create()
+        {
+            var antiDownQuark = new AntiDownQuark();
+            TriggerMatterCreationEvent(new MatterCreationEvent(antiDownQuark));
+
+            return antiDownQuark;
         }
     }
 }
