@@ -7,6 +7,7 @@
     using ElementaryParticles.Quarks;
     using Interfaces.ElementaryParticles;
     using Interfaces.ElementaryParticles.Quarks;
+    using MatterCreation;
 
     /// <inheritdoc cref="Pion"/>
     public class PionPositive : Pion
@@ -35,6 +36,28 @@
             {
                 throw new ArgumentException($"A Positive Pion requires one (1) Up Quark and one (1) AntiDown Quark. This Positive Pion contains {numberOfUpQuarks} Up Quarks and {numberOfAntiDownQuarks} AntiDown Quarks.");
             }
+        }
+    }
+
+    /// <inheritdoc cref="SubatomicParticleCreator{T}"/>
+    public class PionPositiveCreator : CompositeParticleCreator<PionPositive>
+    {
+        /// <inheritdoc cref="SubatomicParticleCreator{T}.Create"/>
+        public override PionPositive Create()
+        {
+            var pionPositive = new PionPositive();
+            TriggerMatterCreationEvent(new MatterCreationEvent(pionPositive));
+
+            return pionPositive;
+        }
+
+        /// <inheritdoc cref="CompositeParticleCreator{T}.Create(ICollection{IQuark},ICollection{IGluon})"/>
+        public override PionPositive Create(ICollection<IQuark> quarks, ICollection<IGluon> gluons)
+        {
+            var pionPositive = new PionPositive(quarks, gluons);
+            TriggerMatterCreationEvent(new MatterCreationEvent(pionPositive));
+
+            return pionPositive;
         }
     }
 }

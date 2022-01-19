@@ -20,7 +20,8 @@
     /// <inheritdoc cref="SubatomicParticleCreator{T}"/>
     public class AntiUpQuarkCreator : SubatomicParticleCreator<AntiUpQuark>
     {
-        public override ISubatomicParticle Create()
+        /// <inheritdoc cref="SubatomicParticleCreator{T}.Create"/>
+        public override AntiUpQuark Create()
         {
             var antiUpQuark = new AntiUpQuark();
             TriggerMatterCreationEvent(new MatterCreationEvent(antiUpQuark));

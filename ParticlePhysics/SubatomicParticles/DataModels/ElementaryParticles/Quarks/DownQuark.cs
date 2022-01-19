@@ -27,7 +27,8 @@
     /// <inheritdoc cref="SubatomicParticleCreator{T}"/>
     public class DownQuarkCreator : SubatomicParticleCreator<DownQuark>
     {
-        public override ISubatomicParticle Create()
+        /// <inheritdoc cref="SubatomicParticleCreator{T}.Create"/>
+        public override DownQuark Create()
         {
             var downQuark = new DownQuark();
             TriggerMatterCreationEvent(new MatterCreationEvent(downQuark));

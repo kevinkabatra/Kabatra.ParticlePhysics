@@ -7,6 +7,7 @@
     using ElementaryParticles.Quarks;
     using Interfaces.ElementaryParticles;
     using Interfaces.ElementaryParticles.Quarks;
+    using MatterCreation;
 
     /// <inheritdoc cref="Pion"/>
     public class PionNeutral : Pion
@@ -54,6 +55,28 @@
         public static PionNeutral PionNeutralDownQuarkComposition()
         {
             return new PionNeutral(ConstantCompositionDownQuarks, Meson.ConstantGluons);
+        }
+    }
+
+    /// <inheritdoc cref="SubatomicParticleCreator{T}"/>
+    public class PionNeutralCreator : CompositeParticleCreator<PionNeutral>
+    {
+        /// <inheritdoc cref="SubatomicParticleCreator{T}.Create"/>
+        public override PionNeutral Create()
+        {
+            var pionNeutral = new PionNeutral();
+            TriggerMatterCreationEvent(new MatterCreationEvent(pionNeutral));
+
+            return pionNeutral;
+        }
+
+        /// <inheritdoc cref="CompositeParticleCreator{T}.Create(ICollection{IQuark},ICollection{IGluon})"/>
+        public override PionNeutral Create(ICollection<IQuark> quarks, ICollection<IGluon> gluons)
+        {
+            var pionNeutral = new PionNeutral(quarks, gluons);
+            TriggerMatterCreationEvent(new MatterCreationEvent(pionNeutral));
+
+            return pionNeutral;
         }
     }
 }

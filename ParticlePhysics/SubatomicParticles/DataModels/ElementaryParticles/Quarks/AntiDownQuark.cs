@@ -2,7 +2,6 @@
 {
     using System;
     using Constants;
-    using Interfaces;
     using MatterCreation;
 
     public class AntiDownQuark : Quark
@@ -20,7 +19,8 @@
     /// <inheritdoc cref="SubatomicParticleCreator{T}"/>
     public class AntiDownQuarkCreator : SubatomicParticleCreator<AntiDownQuark>
     {
-        public override ISubatomicParticle Create()
+        /// <inheritdoc cref="SubatomicParticleCreator{T}.Create"/>
+        public override AntiDownQuark Create()
         {
             var antiDownQuark = new AntiDownQuark();
             TriggerMatterCreationEvent(new MatterCreationEvent(antiDownQuark));

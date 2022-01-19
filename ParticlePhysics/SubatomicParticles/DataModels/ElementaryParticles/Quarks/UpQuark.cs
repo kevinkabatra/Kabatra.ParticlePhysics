@@ -2,7 +2,6 @@
 {
     using System;
     using Constants;
-    using Interfaces;
     using MatterCreation;
 
     /// <summary>
@@ -27,7 +26,8 @@
     /// <inheritdoc cref="SubatomicParticleCreator{T}"/>
     public class UpQuarkCreator : SubatomicParticleCreator<UpQuark>
     {
-        public override ISubatomicParticle Create()
+        /// <inheritdoc cref="SubatomicParticleCreator{T}.Create"/>
+        public override UpQuark Create()
         {
             var upQuark = new UpQuark();
             TriggerMatterCreationEvent(new MatterCreationEvent(upQuark));
