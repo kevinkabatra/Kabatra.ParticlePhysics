@@ -8,7 +8,7 @@
     using Utilities;
     using Xunit;
 
-    public class GluonTests : SubatomicParticleTests<Gluon>, IDisposable
+    public class GluonTests : SubatomicParticleTests<Gluon, GluonCreator>, IDisposable
     {
         private Gluon _gluon;
 
@@ -46,6 +46,7 @@
             Assert.True(_gluon.QuarkB.HasAttractedToAnotherObject);
         }
 
+        /// <inheritdoc cref="SubatomicParticleTests{TParticle,TParticleCreator}.ValidateCreation"/>
         protected override void ValidateCreation(Gluon particle)
         {
             Assert.Null(particle.QuarkA);

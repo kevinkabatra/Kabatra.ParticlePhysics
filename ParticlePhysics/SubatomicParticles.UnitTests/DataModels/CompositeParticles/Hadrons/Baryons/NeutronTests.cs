@@ -2,18 +2,15 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     using System.Linq;
-    using Interfaces.ElementaryParticles;
     using Interfaces.ElementaryParticles.Quarks;
     using SubatomicParticles.DataModels.CompositeParticles.Hadrons.Baryons;
     using SubatomicParticles.DataModels.ElementaryParticles;
     using SubatomicParticles.DataModels.ElementaryParticles.Quarks;
-    using Universe.UnitTests.Utilities;
     using Utilities;
     using Xunit;
 
-    public class NeutronTests : CompositeParticleTests<Neutron>, IDisposable
+    public class NeutronTests : CompositeParticleTests<Neutron ,NeutronCreator>, IDisposable
     {
         private Neutron _neutron;
 
@@ -31,7 +28,7 @@
             GC.SuppressFinalize(this);
         }
 
-        /// <inheritdoc cref="CompositeParticleTests{T}.CanMakeParticleFromQuarksAndGluons"/>
+        /// <inheritdoc cref="CompositeParticleTests{TParticle,TParticleCreator}.CanMakeParticleFromQuarksAndGluons"/>
         [Fact]
         public override void CanMakeParticleFromQuarksAndGluons()
         {
@@ -68,7 +65,7 @@
         }
         */
 
-        /// <inheritdoc cref="CompositeParticleTests{T}.CannotMakeParticleWithIncorrectCharge"/>
+        /// <inheritdoc cref="CompositeParticleTests{TParticle,TParticleCreator}.CannotMakeParticleWithIncorrectCharge"/>
         [Fact]
         public override void CannotMakeParticleWithIncorrectCharge()
         {
@@ -82,7 +79,7 @@
             Assert.Throws<Exception>(() => new Neutron(wrongQuarks, Baryon.ConstantGluons));
         }
 
-        /// <inheritdoc cref="CompositeParticleTests{T}.CannotMakeParticleWithIncorrectQuarks"/>
+        /// <inheritdoc cref="CompositeParticleTests{TParticle,TParticleCreator}.CannotMakeParticleWithIncorrectQuarks"/>
         [Fact]
         public override void CannotMakeParticleWithIncorrectQuarks()
         {
@@ -102,7 +99,7 @@
             Assert.NotEmpty(universe.SubatomicParticles.OfType<Electron>());
         }
 
-        /// <inheritdoc cref="SubatomicParticleTests{T}.ValidateCreation"/>
+        /// <inheritdoc cref="SubatomicParticleTests{TParticle,TParticleCreator}.ValidateCreation"/>
         protected override void ValidateCreation(Neutron particle)
         {
             // Set this so that dispose can clean up at the end.

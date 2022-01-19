@@ -3,9 +3,9 @@
     using SubatomicParticles.DataModels.ElementaryParticles;
     using Xunit;
 
-    public class ElectronTests : SubatomicParticleTests<Electron>
+    public class ElectronTests : SubatomicParticleTests<Electron, ElectronCreator>
     {
-        /// <inheritdoc cref="SubatomicParticleTests{T}.ValidateCreation"/>
+        /// <inheritdoc cref="SubatomicParticleTests{TParticle,TParticleCreator}.ValidateCreation"/>
         protected override void ValidateCreation(Electron particle)
         {
             Assert.Equal(Electron.ConstantAntiparticleType, particle.AntiparticleType);

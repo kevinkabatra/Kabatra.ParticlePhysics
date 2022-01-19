@@ -2,10 +2,11 @@
 {
     using System;
     using Constants;
+    using SubatomicParticles.DataModels;
     using SubatomicParticles.DataModels.ElementaryParticles.Quarks;
     using Xunit;
 
-    public abstract class QuarkTests<T> : SubatomicParticleTests<T> where T : Quark, new()
+    public abstract class QuarkTests<TParticle, TParticleBuilder> : SubatomicParticleTests<TParticle, TParticleBuilder> where TParticle : Quark, new() where TParticleBuilder : ISubatomicParticleCreator<TParticle>, new()
     {
         /// <summary>
         ///     Validates that a given Quark has been created correctly.
@@ -17,7 +18,7 @@
         /// <param name="massInElectronVolts">The mass of the Quark.</param>
         /// <param name="antiparticle">The antiparticle of the Quark.</param>
         protected static void ValidateQuarkCreation(
-            T quark,
+            TParticle quark,
             QuarkFlavor quarkFlavor,
             ChargeType chargeType,
             double chargeValue,

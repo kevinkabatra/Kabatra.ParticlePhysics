@@ -8,9 +8,9 @@
     using SubatomicParticles.DataModels.ElementaryParticles.Quarks;
     using Xunit;
 
-    public class ProtonTests : CompositeParticleTests<Proton>
+    public class ProtonTests : CompositeParticleTests<Proton, ProtonCreator>
     {
-        /// <inheritdoc cref="CompositeParticleTests{T}.CanMakeParticleFromQuarksAndGluons"/>
+        /// <inheritdoc cref="CompositeParticleTests{TParticle,TParticleCreator}.CanMakeParticleFromQuarksAndGluons"/>
         [Fact]
         public override void CanMakeParticleFromQuarksAndGluons()
         {
@@ -18,7 +18,7 @@
             ValidateCreation(proton);
         }
 
-        /// <inheritdoc cref="CompositeParticleTests{T}.CannotMakeParticleWithIncorrectCharge"/>
+        /// <inheritdoc cref="CompositeParticleTests{TParticle,TParticleCreator}.CannotMakeParticleWithIncorrectCharge"/>
         [Fact]
         public override void CannotMakeParticleWithIncorrectCharge()
         {
@@ -32,14 +32,14 @@
             Assert.Throws<Exception>(() => new Proton(wrongQuarks, Baryon.ConstantGluons));
         }
 
-        /// <inheritdoc cref="CompositeParticleTests{T}.CannotMakeParticleWithIncorrectQuarks"/>
+        /// <inheritdoc cref="CompositeParticleTests{TParticle,TParticleCreator}.CannotMakeParticleWithIncorrectQuarks"/>
         [Fact]
         public override void CannotMakeParticleWithIncorrectQuarks()
         {
             Assert.Throws<ArgumentException>(() => new Proton(Antiproton.ConstantComposition, Baryon.ConstantGluons));
         }
 
-        /// <inheritdoc cref="SubatomicParticleTests{T}.ValidateCreation"/>
+        /// <inheritdoc cref="SubatomicParticleTests{TParticle,TParticleCreator}.ValidateCreation"/>
         protected override void ValidateCreation(Proton particle)
         {
             var quarks = Proton.ConstantComposition.ToList();

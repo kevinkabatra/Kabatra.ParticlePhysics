@@ -9,9 +9,9 @@
     using SubatomicParticles.DataModels.ElementaryParticles.Quarks;
     using Xunit;
 
-    public class PionPositiveTests : CompositeParticleTests<PionPositive>
+    public class PionPositiveTests : CompositeParticleTests<PionPositive, PionPositiveCreator>
     {
-        /// <inheritdoc cref="CompositeParticleTests{T}.CanMakeParticleFromQuarksAndGluons"/>
+        /// <inheritdoc cref="CompositeParticleTests{TParticle,TParticleCreator}.CanMakeParticleFromQuarksAndGluons"/>
         [Fact]
         public override void CanMakeParticleFromQuarksAndGluons()
         {
@@ -19,7 +19,7 @@
             ValidateCreation(pionPositive);
         }
 
-        /// <inheritdoc cref="CompositeParticleTests{T}.CannotMakeParticleWithIncorrectCharge"/>
+        /// <inheritdoc cref="CompositeParticleTests{TParticle,TParticleCreator}.CannotMakeParticleWithIncorrectCharge"/>
         [Fact]
         public override void CannotMakeParticleWithIncorrectCharge()
         {
@@ -33,14 +33,14 @@
             Assert.Throws<Exception>(() => new PionPositive(wrongQuarks, Meson.ConstantGluons));
         }
 
-        /// <inheritdoc cref="CompositeParticleTests{T}.CannotMakeParticleWithIncorrectQuarks"/>
+        /// <inheritdoc cref="CompositeParticleTests{TParticle,TParticleCreator}.CannotMakeParticleWithIncorrectQuarks"/>
         [Fact]
         public override void CannotMakeParticleWithIncorrectQuarks()
         {
             Assert.Throws<ArgumentException>(() => new PionPositive(PionNegative.ConstantComposition, Meson.ConstantGluons));
         }
 
-        /// <inheritdoc cref="SubatomicParticleTests{T}.ValidateCreation"/>
+        /// <inheritdoc cref="SubatomicParticleTests{TParticle,TParticleCreator}.ValidateCreation"/>
         protected override void ValidateCreation(PionPositive particle)
         {
             var quarks = PionPositive.ConstantComposition.ToList();

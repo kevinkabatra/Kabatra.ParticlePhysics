@@ -3,9 +3,9 @@
     using SubatomicParticles.DataModels.ElementaryParticles;
     using Xunit;
 
-    public class PositronTests : SubatomicParticleTests<Positron>
+    public class PositronTests : SubatomicParticleTests<Positron, PositronCreator>
     {
-        /// <inheritdoc cref="SubatomicParticleTests{T}.ValidateCreation"/>
+        /// <inheritdoc cref="SubatomicParticleTests{TParticle,TParticleCreator}.ValidateCreation"/>
         protected override void ValidateCreation(Positron particle)
         {
             Assert.Equal(Positron.ConstantAntiparticleType, particle.AntiparticleType);

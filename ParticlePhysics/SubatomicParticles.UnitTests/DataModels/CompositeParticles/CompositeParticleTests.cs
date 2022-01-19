@@ -2,7 +2,7 @@
 {
     using SubatomicParticles.DataModels.CompositeParticles;
 
-    public abstract class CompositeParticleTests<T> : SubatomicParticleTests<T> where T: CompositeParticle, new()
+    public abstract class CompositeParticleTests<TParticle, TParticleCreator> : SubatomicParticleTests<TParticle, TParticleCreator> where TParticle: CompositeParticle, new() where TParticleCreator : CompositeParticleCreator<TParticle>, new()
     {
         /// <summary>
         ///     All composite particles are made from Quarks and Gluons,
