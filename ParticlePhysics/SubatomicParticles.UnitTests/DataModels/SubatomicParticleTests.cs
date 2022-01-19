@@ -1,10 +1,11 @@
 ﻿namespace SubatomicParticles.UnitTests.DataModels
 {
     using Interfaces;
+    using MatterCreation;
     using SubatomicParticles.DataModels;
     using Xunit;
 
-    public abstract class SubatomicParticleTests<TParticle, TParticleCreator> where TParticle : ISubatomicParticle, new() where TParticleCreator : ISubatomicParticleCreator<TParticle>, new()
+    public abstract class SubatomicParticleTests<TParticle, TParticleCreator> where TParticle : ISubatomicParticle, new() where TParticleCreator : SubatomicParticleCreator<TParticle>, new()
     {
         /// <summary>
         ///     Validates that a particle can be created, this is how the creator will create the particles.
@@ -23,6 +24,21 @@
             var particleCreator = new TParticleCreator();
             var particle = (TParticle) particleCreator.Create();
             ValidateCreation(particle);
+        }
+
+        [Fact]
+        public void MatterCreationEventTriggeredOnParticleCreation()
+        {
+            var particleCreator = new TParticleCreator();
+            var particleCreated = Assert.Raises<MatterCreationEvent>(
+                attach => particleCreator.MatterCreation += attach,
+                detach => particleCreator.MatterCreation -= detach,
+                () => particleCreator.Create()
+            ).Arguments.Particle;
+            Assert.NotNull(particleCreated);
+
+            var expectedParticle = new TParticle();
+            Assert.Equal(expectedParticle, particleCreated);
         }
 
         /// <summary>

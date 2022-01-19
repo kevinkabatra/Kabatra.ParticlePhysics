@@ -6,7 +6,7 @@
     using SubatomicParticles.DataModels.ElementaryParticles.Quarks;
     using Xunit;
 
-    public abstract class QuarkTests<TParticle, TParticleBuilder> : SubatomicParticleTests<TParticle, TParticleBuilder> where TParticle : Quark, new() where TParticleBuilder : ISubatomicParticleCreator<TParticle>, new()
+    public abstract class QuarkTests<TParticle, TParticleBuilder> : SubatomicParticleTests<TParticle, TParticleBuilder> where TParticle : Quark, new() where TParticleBuilder : SubatomicParticleCreator<TParticle>, new()
     {
         /// <summary>
         ///     Validates that a given Quark has been created correctly.
