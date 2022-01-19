@@ -7,6 +7,7 @@
     using ElementaryParticles.Quarks;
     using Interfaces.ElementaryParticles;
     using Interfaces.ElementaryParticles.Quarks;
+    using MatterCreation;
 
     public class Antiproton : Baryon
     {
@@ -36,6 +37,28 @@
             {
                 throw new ArgumentException($"A Antiproton requires two (2) AntiUp Quark and one (1) AntiDown Quark. This Antiproton contains {numberOfAntiUpQuarks} AntiUp Quarks and {numberOfAntiDownQuarks} AntiDown Quarks.");
             }
+        }
+    }
+
+    /// <inheritdoc cref="SubatomicParticleCreator{T}"/>
+    public class AntiprotonCreator : CompositeParticleCreator<Antiproton>
+    {
+        /// <inheritdoc cref="SubatomicParticleCreator{T}.Create"/>
+        public override Antiproton Create()
+        {
+            var antiproton = new Antiproton();
+            TriggerMatterCreationEvent(new MatterCreationEvent(antiproton));
+
+            return antiproton;
+        }
+
+        /// <inheritdoc cref="CompositeParticleCreator{T}.Create(ICollection{IQuark},ICollection{IGluon})"/>
+        public override Antiproton Create(ICollection<IQuark> quarks, ICollection<IGluon> gluons)
+        {
+            var antiproton = new Antiproton(quarks, gluons);
+            TriggerMatterCreationEvent(new MatterCreationEvent(antiproton));
+
+            return antiproton;
         }
     }
 }

@@ -9,6 +9,7 @@
     using ElementaryParticles.Quarks;
     using Interfaces.ElementaryParticles;
     using Interfaces.ElementaryParticles.Quarks;
+    using MatterCreation;
 
     /// <summary>
     ///     The neutron is a subatomic particle which has a neutral charge and a mass slightly greater than that of a Proton.
@@ -34,7 +35,7 @@
 
         public Timer BetaDecayEvent;
 
-        public Neutron() : base(Neutron.ConstantComposition, ConstantGluons, ConstantMassInKilograms, ConstantMassInElectronVolts, ConstantAntiparticleType)
+        public Neutron() : base(ConstantComposition, ConstantGluons, ConstantMassInKilograms, ConstantMassInElectronVolts, ConstantAntiparticleType)
         {
             SetBetaMinusDecayTimer();
         }
@@ -81,6 +82,28 @@
             // https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/functional/discards
             _ = new Proton();
             _ = new Electron();
+        }
+    }
+
+    /// <inheritdoc cref="SubatomicParticleCreator{T}"/>
+    public class NeutronCreator : CompositeParticleCreator<Neutron>
+    {
+        /// <inheritdoc cref="SubatomicParticleCreator{T}.Create"/>
+        public override Neutron Create()
+        {
+            var neutron = new Neutron();
+            TriggerMatterCreationEvent(new MatterCreationEvent(neutron));
+
+            return neutron;
+        }
+
+        /// <inheritdoc cref="CompositeParticleCreator{T}.Create(ICollection{IQuark},ICollection{IGluon})"/>
+        public override Neutron Create(ICollection<IQuark> quarks, ICollection<IGluon> gluons)
+        {
+            var neutron = new Neutron(quarks, gluons);
+            TriggerMatterCreationEvent(new MatterCreationEvent(neutron));
+
+            return neutron;
         }
     }
 }
