@@ -5,6 +5,7 @@
     using Forces;
     using Interfaces.ElementaryParticles;
     using Interfaces.ElementaryParticles.Quarks;
+    using MatterCreation;
 
     /// <inheritdoc cref="IGluon"/>
     public class Gluon : ElementaryParticle, IGluon
@@ -47,6 +48,19 @@
             if (QuarkB == null) return;
             AttachQuarkBEvent.Dispose();
             QuarkB.HasAttractedToAnotherObject = true;
+        }
+    }
+
+    /// <inheritdoc cref="SubatomicParticleCreator{T}"/>
+    public class GluonCreator : SubatomicParticleCreator<Gluon>
+    {
+        /// <inheritdoc cref="SubatomicParticleCreator{T}.Create"/>
+        public override Gluon Create()
+        {
+            var gluon = new Gluon();
+            TriggerMatterCreationEvent(new MatterCreationEvent(gluon));
+
+            return gluon;
         }
     }
 }

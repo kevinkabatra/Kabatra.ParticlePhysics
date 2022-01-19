@@ -2,6 +2,7 @@
 {
     using System;
     using Constants;
+    using MatterCreation;
 
     /// <summary>
     ///     The electron is a subatomic particle which has a negative electric charge.
@@ -18,6 +19,19 @@
 
         public Electron() : base(ConstantChargeType, ConstantChargeValue, ConstantMassInKilograms, ConstantMassInElectronVolts, ConstantAntiparticleType)
         {
+        }
+    }
+
+    /// <inheritdoc cref="SubatomicParticleCreator{T}"/>
+    public class ElectronCreator : SubatomicParticleCreator<Electron>
+    {
+        /// <inheritdoc cref="SubatomicParticleCreator{T}.Create"/>
+        public override Electron Create()
+        {
+            var electron = new Electron();
+            TriggerMatterCreationEvent(new MatterCreationEvent(electron));
+
+            return electron;
         }
     }
 }

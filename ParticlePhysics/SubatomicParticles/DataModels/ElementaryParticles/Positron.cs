@@ -2,6 +2,7 @@
 {
     using System;
     using Constants;
+    using MatterCreation;
 
     /// <summary>
     ///     The positron or antielectron is the antiparticle or the antimatter counterpart of the electron.
@@ -18,6 +19,19 @@
 
         public Positron() : base(ConstantChargeType, ConstantChargeValue, ConstantMassInKilograms, ConstantMassInElectronVolts, ConstantAntiparticleType)
         {
+        }
+    }
+
+    /// <inheritdoc cref="SubatomicParticleCreator{T}"/>
+    public class PositronCreator : SubatomicParticleCreator<Positron>
+    {
+        /// <inheritdoc cref="SubatomicParticleCreator{T}.Create"/>
+        public override Positron Create()
+        {
+            var positron = new Positron();
+            TriggerMatterCreationEvent(new MatterCreationEvent(positron));
+
+            return positron;
         }
     }
 }
