@@ -1,0 +1,24 @@
+﻿namespace Universe.SubatomicParticles.Forces
+{
+    using System.Linq;
+    using Interfaces;
+    using Interfaces.Forces;
+    using Universe.Constants;
+    using Universe.DataModels;
+
+    public class StrongNuclearForce<T> : IStrongNuclearForce<T> where T : ISubatomicParticle
+    {
+        public static T Attach()
+        {
+            var universe = Universe.GetOrCreateInstance();
+            // Prior to the end of the Quark Epoch the universe is too hot to have any subatomic particles combine, Quarks and Gluons form a Quark Gluon plasma.
+            if (universe.Epoch < Epoch.EndQuarkEpoch) return default;
+
+            var subatomicParticleToAttachTo = universe.SubatomicParticles.OfType<T>().FirstOrDefault(subatomicParticle =>
+                    !subatomicParticle.HasAttractedToAnotherObject
+                );
+
+            return subatomicParticleToAttachTo ?? default;
+        }
+    }
+}

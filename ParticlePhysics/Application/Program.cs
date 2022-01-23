@@ -2,15 +2,15 @@
 {
     using System;
     using System.Linq;
-    using SubatomicParticles.DataModels.CompositeParticles.Hadrons.Baryons;
-    using SubatomicParticles.DataModels.ElementaryParticles;
-    using SubatomicParticles.DataModels.ElementaryParticles.Quarks;
-    using SubatomicParticles.Interfaces;
-    using SubatomicParticles.Interfaces.ElementaryParticles;
-    using SubatomicParticles.Interfaces.ElementaryParticles.Quarks;
-    using Universe.Constants;
-    using Universe.DataModels;
-    using Universe.Utilities;
+    using Universe.SubatomicParticles.DataModels.CompositeParticles.Hadrons.Baryons;
+    using Universe.SubatomicParticles.DataModels.ElementaryParticles;
+    using Universe.SubatomicParticles.DataModels.ElementaryParticles.Quarks;
+    using Universe.SubatomicParticles.Interfaces;
+    using Universe.SubatomicParticles.Interfaces.ElementaryParticles;
+    using Universe.SubatomicParticles.Interfaces.ElementaryParticles.Quarks;
+    using Universe.Universe.Constants;
+    using Universe.Universe.DataModels;
+    using Universe.Universe.Utilities;
 
     internal class Program
     {
@@ -21,7 +21,7 @@
             Console.WriteLine("Let's get started.");
             WaitUserToContinue();
 
-            var universe = (Universe) UniverseUtility<Universe>.GetOrCreateUniverse<Universe>();
+            var universe = (Universe) UniverseUtility<Universe>.GetOrCreateUniverse();
             Console.WriteLine("At the creation of space and time there was an invisible explosion, we call this the big bang.");
             Console.WriteLine("The Big Bang was invisible because until the Recombination Epoch all of the Photons would have bounced off of free Nucleons and Electrons, thus scattering all of the visible light.");
             Console.WriteLine("Our current Standard Model of Cosmology cannot predict what happened at 0 seconds, because our theories breakdown at this scale.");
