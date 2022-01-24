@@ -5,8 +5,12 @@
     using System.Linq;
     using global::Universe.SubatomicParticles.DataModels.CompositeParticles.Hadrons.Mesons;
     using global::Universe.SubatomicParticles.DataModels.CompositeParticles.Hadrons.Mesons.Pions;
+    using global::Universe.SubatomicParticles.DataModels.ElementaryParticles;
     using global::Universe.SubatomicParticles.DataModels.ElementaryParticles.Quarks;
+    using global::Universe.SubatomicParticles.Interfaces.ElementaryParticles;
     using global::Universe.SubatomicParticles.Interfaces.ElementaryParticles.Quarks;
+    using global::Universe.Universe.Utilities;
+    using Universe.InversionOfControlDataModels;
     using Xunit;
 
     public class PionNeutralTests : CompositeParticleTests<PionNeutral, PionNeutralCreator>
@@ -22,15 +26,67 @@
             ValidateCreation(pionNeutralDown);
         }
 
+        /// <inheritdoc cref="CompositeParticleTests{TParticle,TParticleCreator}.CanMakeParticleFromQuarksAndGluonsAndNotHaveErroneousExtraParticles"/>
+        [Fact]
+        public override void CanMakeParticleFromQuarksAndGluonsAndNotHaveErroneousExtraParticles()
+        {
+            var pionNeutralUpCreator = new PionNeutralCreator();
+            var pionNeutralDownCreator = new PionNeutralCreator();
+            var upQuarkCreator = new UpQuarkCreator();
+            var antiUpQuarkCreator = new AntiUpQuarkCreator();
+            var downQuarkCreator = new DownQuarkCreator();
+            var antiDownQuarkCreator = new AntiDownQuarkCreator();
+            var gluonCreator = new GluonCreator();
+
+            // Create two universes that are isolated from the other tests and register all particle creators.
+            var isolatedUpUniverse = (NonSingletonUniverse)UniverseUtility<NonSingletonUniverse>.GetOrCreateUniverse();
+            isolatedUpUniverse.RegisterMatterCreationEvent(pionNeutralUpCreator);
+            isolatedUpUniverse.RegisterMatterCreationEvent(upQuarkCreator);
+            isolatedUpUniverse.RegisterMatterCreationEvent(antiUpQuarkCreator);
+            isolatedUpUniverse.RegisterMatterCreationEvent(gluonCreator);
+
+            var isolatedDownUniverse = (NonSingletonUniverse)UniverseUtility<NonSingletonUniverse>.GetOrCreateUniverse();
+            isolatedDownUniverse.RegisterMatterCreationEvent(pionNeutralDownCreator);
+            isolatedDownUniverse.RegisterMatterCreationEvent(downQuarkCreator);
+            isolatedDownUniverse.RegisterMatterCreationEvent(antiDownQuarkCreator);
+            isolatedDownUniverse.RegisterMatterCreationEvent(gluonCreator);
+
+            var upQuarks = new List<IQuark>
+            {
+                upQuarkCreator.Create(),
+                antiUpQuarkCreator.Create()
+            };
+
+            var downQuarks = new List<IQuark>
+            {
+                downQuarkCreator.Create(),
+                antiDownQuarkCreator.Create()
+            };
+
+            var gluons = new List<IGluon>
+            {
+                gluonCreator.Create()
+            };
+
+
+            pionNeutralUpCreator.Create(upQuarks, gluons);
+            pionNeutralDownCreator.Create(downQuarks, gluons);
+
+            var expectedUpParticleCount = upQuarks.Count + gluons.Count + 1; // + 1 for PionNeutral
+            var expectedDownParticleCount = downQuarks.Count + gluons.Count + 1; // + 1 for PionNeutral
+
+            Assert.Equal(expectedUpParticleCount, isolatedUpUniverse.SubatomicParticles.Count);
+            Assert.Equal(expectedDownParticleCount, isolatedDownUniverse.SubatomicParticles.Count);
+        }
+
         /// <inheritdoc cref="CompositeParticleTests{TParticle,TParticleCreator}.CannotMakeParticleWithIncorrectCharge"/>
         [Fact]
         public override void CannotMakeParticleWithIncorrectCharge()
         {
             var wrongQuarks = new List<IQuark>
             {
-                new UpQuark(),
-                new UpQuark(),
-                new UpQuark()
+                new UpQuarkCreator().Create(),
+                new UpQuarkCreator().Create()
             };
 
             Assert.Throws<Exception>(() => new PionNeutral(wrongQuarks, Meson.ConstantGluons));

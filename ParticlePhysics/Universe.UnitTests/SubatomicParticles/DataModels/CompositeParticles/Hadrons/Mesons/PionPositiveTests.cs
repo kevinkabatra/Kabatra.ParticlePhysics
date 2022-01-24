@@ -5,8 +5,12 @@
     using System.Linq;
     using global::Universe.SubatomicParticles.DataModels.CompositeParticles.Hadrons.Mesons;
     using global::Universe.SubatomicParticles.DataModels.CompositeParticles.Hadrons.Mesons.Pions;
+    using global::Universe.SubatomicParticles.DataModels.ElementaryParticles;
     using global::Universe.SubatomicParticles.DataModels.ElementaryParticles.Quarks;
+    using global::Universe.SubatomicParticles.Interfaces.ElementaryParticles;
     using global::Universe.SubatomicParticles.Interfaces.ElementaryParticles.Quarks;
+    using global::Universe.Universe.Utilities;
+    using Universe.InversionOfControlDataModels;
     using Xunit;
 
     public class PionPositiveTests : CompositeParticleTests<PionPositive, PionPositiveCreator>
@@ -19,15 +23,46 @@
             ValidateCreation(pionPositive);
         }
 
+        /// <inheritdoc cref="CompositeParticleTests{TParticle,TParticleCreator}.CanMakeParticleFromQuarksAndGluonsAndNotHaveErroneousExtraParticles"/>
+        [Fact]
+        public override void CanMakeParticleFromQuarksAndGluonsAndNotHaveErroneousExtraParticles()
+        {
+            var upQuarkCreator = new UpQuarkCreator();
+            var antiDownQuarkCreator = new AntiDownQuarkCreator();
+            var gluonCreator = new GluonCreator();
+
+            // Create a universe that is isolated from the other tests and register all particle creators.
+            var isolatedUniverse = (NonSingletonUniverse)UniverseUtility<NonSingletonUniverse>.GetOrCreateUniverse();
+            isolatedUniverse.RegisterMatterCreationEvent(SubatomicParticleCreator);
+            isolatedUniverse.RegisterMatterCreationEvent(upQuarkCreator);
+            isolatedUniverse.RegisterMatterCreationEvent(antiDownQuarkCreator);
+            isolatedUniverse.RegisterMatterCreationEvent(gluonCreator);
+
+            var quarks = new List<IQuark>
+            {
+                upQuarkCreator.Create(),
+                antiDownQuarkCreator.Create()
+            };
+
+            var gluons = new List<IGluon>
+            {
+                gluonCreator.Create()
+            };
+
+            ((PionPositiveCreator)SubatomicParticleCreator).Create(quarks, gluons);
+
+            var expectedParticleCount = quarks.Count + gluons.Count + 1; // + 1 for PionPositive
+            Assert.Equal(expectedParticleCount, isolatedUniverse.SubatomicParticles.Count);
+        }
+
         /// <inheritdoc cref="CompositeParticleTests{TParticle,TParticleCreator}.CannotMakeParticleWithIncorrectCharge"/>
         [Fact]
         public override void CannotMakeParticleWithIncorrectCharge()
         {
             var wrongQuarks = new List<IQuark>
             {
-                new UpQuark(),
-                new UpQuark(),
-                new UpQuark()
+                new UpQuarkCreator().Create(),
+                new UpQuarkCreator().Create()
             };
 
             Assert.Throws<Exception>(() => new PionPositive(wrongQuarks, Meson.ConstantGluons));

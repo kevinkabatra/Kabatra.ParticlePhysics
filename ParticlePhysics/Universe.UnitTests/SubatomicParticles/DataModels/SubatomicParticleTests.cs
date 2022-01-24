@@ -9,12 +9,12 @@
 
     public abstract class SubatomicParticleTests<TParticle, TParticleCreator> where TParticle : ISubatomicParticle, new() where TParticleCreator : SubatomicParticleCreator<TParticle>, new()
     {
-        private readonly SubatomicParticleCreator<TParticle> _subatomicParticleCreator;
+        protected readonly SubatomicParticleCreator<TParticle> SubatomicParticleCreator;
 
         protected SubatomicParticleTests()
         {
-            _subatomicParticleCreator = new TParticleCreator();
-            UniverseUtility<Universe>.GetOrCreateUniverse().RegisterMatterCreationEvent(_subatomicParticleCreator);
+            SubatomicParticleCreator = new TParticleCreator();
+            UniverseUtility<Universe>.GetOrCreateUniverse().RegisterMatterCreationEvent(SubatomicParticleCreator);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@
         [Fact]
         public void CanMakeParticleWithCreator()
         {
-            var particle = (TParticle)_subatomicParticleCreator.Create();
+            var particle = (TParticle)SubatomicParticleCreator.Create();
             ValidateCreation(particle);
         }
 
@@ -39,9 +39,9 @@
         public void MatterCreationEventTriggeredOnParticleCreation()
         {
             var particleCreated = Assert.Raises<MatterCreationEvent>(
-                attach => _subatomicParticleCreator.MatterCreation += attach,
-                detach => _subatomicParticleCreator.MatterCreation -= detach,
-                () => _subatomicParticleCreator.Create()
+                attach => SubatomicParticleCreator.MatterCreation += attach,
+                detach => SubatomicParticleCreator.MatterCreation -= detach,
+                () => SubatomicParticleCreator.Create()
             ).Arguments.Particle;
             Assert.NotNull(particleCreated);
 
@@ -55,8 +55,8 @@
         [Fact]
         public void CanTestEqualityOfParticles()
         {
-            var particleA = _subatomicParticleCreator.Create();
-            var particleB = _subatomicParticleCreator.Create();
+            var particleA = SubatomicParticleCreator.Create();
+            var particleB = SubatomicParticleCreator.Create();
 
             Assert.Equal(particleA, particleB);
         }
@@ -67,7 +67,7 @@
         [Fact]
         public void ParticleIsAddedToUniverseUponCreation()
         {
-            var particle = (TParticle) _subatomicParticleCreator.Create();
+            var particle = (TParticle) SubatomicParticleCreator.Create();
             var universe = Universe.GetOrCreateInstance();
 
             Assert.Contains(particle, universe.SubatomicParticles);

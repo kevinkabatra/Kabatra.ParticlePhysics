@@ -4,8 +4,12 @@
     using System.Collections.Generic;
     using System.Linq;
     using global::Universe.SubatomicParticles.DataModels.CompositeParticles.Hadrons.Baryons;
+    using global::Universe.SubatomicParticles.DataModels.ElementaryParticles;
     using global::Universe.SubatomicParticles.DataModels.ElementaryParticles.Quarks;
+    using global::Universe.SubatomicParticles.Interfaces.ElementaryParticles;
     using global::Universe.SubatomicParticles.Interfaces.ElementaryParticles.Quarks;
+    using global::Universe.Universe.Utilities;
+    using Universe.InversionOfControlDataModels;
     using Xunit;
 
     public class ProtonTests : CompositeParticleTests<Proton, ProtonCreator>
@@ -18,15 +22,49 @@
             ValidateCreation(proton);
         }
 
+        /// <inheritdoc cref="CompositeParticleTests{TParticle,TParticleCreator}.CanMakeParticleFromQuarksAndGluonsAndNotHaveErroneousExtraParticles"/>
+        [Fact]
+        public override void CanMakeParticleFromQuarksAndGluonsAndNotHaveErroneousExtraParticles()
+        {
+            var upQuarkCreator = new UpQuarkCreator();
+            var downQuarkCreator = new DownQuarkCreator();
+            var gluonCreator = new GluonCreator();
+
+            // Create a universe that is isolated from the other tests and register all particle creators.
+            var isolatedUniverse = (NonSingletonUniverse)UniverseUtility<NonSingletonUniverse>.GetOrCreateUniverse();
+            isolatedUniverse.RegisterMatterCreationEvent(SubatomicParticleCreator);
+            isolatedUniverse.RegisterMatterCreationEvent(upQuarkCreator);
+            isolatedUniverse.RegisterMatterCreationEvent(downQuarkCreator);
+            isolatedUniverse.RegisterMatterCreationEvent(gluonCreator);
+
+            var quarks = new List<IQuark>
+            {
+                upQuarkCreator.Create(),
+                upQuarkCreator.Create(),
+                downQuarkCreator.Create()
+            };
+
+            var gluons = new List<IGluon>
+            {
+                gluonCreator.Create(),
+                gluonCreator.Create()
+            };
+
+            ((ProtonCreator)SubatomicParticleCreator).Create(quarks, gluons);
+
+            var expectedParticleCount = quarks.Count + gluons.Count + 1; // + 1 for Proton
+            Assert.Equal(expectedParticleCount, isolatedUniverse.SubatomicParticles.Count);
+        }
+
         /// <inheritdoc cref="CompositeParticleTests{TParticle,TParticleCreator}.CannotMakeParticleWithIncorrectCharge"/>
         [Fact]
         public override void CannotMakeParticleWithIncorrectCharge()
         {
             var wrongQuarks = new List<IQuark>
             {
-                new UpQuark(),
-                new UpQuark(),
-                new UpQuark()
+                new UpQuarkCreator().Create(),
+                new UpQuarkCreator().Create(),
+                new UpQuarkCreator().Create()
             };
 
             Assert.Throws<Exception>(() => new Proton(wrongQuarks, Baryon.ConstantGluons));

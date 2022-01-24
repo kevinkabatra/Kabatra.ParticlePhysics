@@ -6,8 +6,11 @@
     using global::Universe.SubatomicParticles.DataModels.CompositeParticles.Hadrons.Baryons;
     using global::Universe.SubatomicParticles.DataModels.ElementaryParticles;
     using global::Universe.SubatomicParticles.DataModels.ElementaryParticles.Quarks;
+    using global::Universe.SubatomicParticles.Interfaces.ElementaryParticles;
     using global::Universe.SubatomicParticles.Interfaces.ElementaryParticles.Quarks;
     using global::Universe.Universe.DataModels;
+    using global::Universe.Universe.Utilities;
+    using Universe.InversionOfControlDataModels;
     using Utilities;
     using Xunit;
 
@@ -37,34 +40,39 @@
             ValidateCreation(_neutron);
         }
 
-        /*
-        /// <inheritdoc cref="CompositeParticleTests{T}.CanMakeParticleFromQuarksAndGluonsAndNotHaveErroneousExtraParticles"/>
+        /// <inheritdoc cref="CompositeParticleTests{TParticle,TParticleCreator}.CanMakeParticleFromQuarksAndGluonsAndNotHaveErroneousExtraParticles"/>
         [Fact]
         public override void CanMakeParticleFromQuarksAndGluonsAndNotHaveErroneousExtraParticles()
         {
+            var upQuarkCreator = new UpQuarkCreator();
+            var downQuarkCreator = new DownQuarkCreator();
+            var gluonCreator = new GluonCreator();
+
+            // Create a universe that is isolated from the other tests and register all particle creators.
+            var isolatedUniverse = (NonSingletonUniverse)UniverseUtility<NonSingletonUniverse>.GetOrCreateUniverse();
+            isolatedUniverse.RegisterMatterCreationEvent(SubatomicParticleCreator);
+            isolatedUniverse.RegisterMatterCreationEvent(upQuarkCreator);
+            isolatedUniverse.RegisterMatterCreationEvent(downQuarkCreator);
+            isolatedUniverse.RegisterMatterCreationEvent(gluonCreator);
+
             var quarks = new List<IQuark>
             {
-                new UpQuark(),
-                new DownQuark(),
-                new DownQuark()
+                upQuarkCreator.Create(),
+                downQuarkCreator.Create(),
+                downQuarkCreator.Create()
             };
 
             var gluons = new List<IGluon>
             {
-                new Gluon(),
-                new Gluon()
+                gluonCreator.Create(),
+                gluonCreator.Create()
             };
 
-            // ToDo: Need to update this to GetUniverse, and then move this logic into the Universe project.
-            // ToDo: The SubatomicParticle code will need to reference IUniverse when adding a particle.
-            // ToDo: I think I can achieve this with GetUniverse, which will replace GetOrCreateInstance.
-            // ToDo: The tests will need to create two different universes. The current singleton for normal tests, and the nonsingleton for isolated tests.
-            // ToDo: The program will use Autofac to say that the Universe will use DataModels.Universe from Universe project.
-            var isolatedUniverse = new UniverseUtility().GetNonSingletonUniverse();
+            _neutron = ((NeutronCreator) SubatomicParticleCreator).Create(quarks, gluons);
 
-            _neutron = new Neutron(quarks, gluons);
+            var expectedParticleCount = quarks.Count + gluons.Count + 1; // + 1 for Neutron
+            Assert.Equal(expectedParticleCount, isolatedUniverse.SubatomicParticles.Count);
         }
-        */
 
         /// <inheritdoc cref="CompositeParticleTests{TParticle,TParticleCreator}.CannotMakeParticleWithIncorrectCharge"/>
         [Fact]
@@ -72,9 +80,9 @@
         {
             var wrongQuarks = new List<IQuark>
             {
-                new UpQuark(),
-                new UpQuark(),
-                new UpQuark()
+                new UpQuarkCreator().Create(),
+                new UpQuarkCreator().Create(),
+                new UpQuarkCreator().Create()
             };
 
             Assert.Throws<Exception>(() => new Neutron(wrongQuarks, Baryon.ConstantGluons));
