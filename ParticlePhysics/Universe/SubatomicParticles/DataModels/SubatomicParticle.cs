@@ -2,8 +2,10 @@
 {
     using System;
     using Constants;
+    using Events;
+    using Events.BetaDecay;
+    using Events.MatterCreation;
     using Interfaces;
-    using MatterCreation;
     using Universe.Interfaces;
     using Universe.Utilities;
 
@@ -77,6 +79,9 @@
         // This event will fire whenever a subatomic particle is created, the Universe will listen for this event, and will add the particle to the Universe.
         public event EventHandler<MatterCreationEvent> MatterCreation;
 
+        // This event will fire whenever a subatomic particle undergoes Beta Decay
+        public event EventHandler<BetaDecayEvent> BetaDecay;
+
         /// <summary>
         ///     Creates a subatomic particle of the specified type and triggers the MatterCreationEvent.
         /// </summary>
@@ -95,12 +100,26 @@
         /// <param name="matterCreationEvent"></param>
         protected virtual void TriggerMatterCreationEvent(MatterCreationEvent matterCreationEvent)
         {
-            // Make a temporary copy of the event to avoid possibility of a race condition if the last subscriber unsubscribes
-            // immediately after the null check and before the event is raised.
-            var temporaryEvent = MatterCreation;
+            TriggerEvent(MatterCreation, matterCreationEvent);
+        }
+
+        /// <summary>
+        ///     Triggers the BetaDecayEventTimer
+        /// </summary>
+        /// <param name="betaDecayEvent"></param>
+        protected virtual void TriggerBetaDecayEvent(BetaDecayEvent betaDecayEvent)
+        {
+            TriggerEvent(BetaDecay, betaDecayEvent);
+        }
+
+        private void TriggerEvent<TEvent>(EventHandler<TEvent> eventHandler, TEvent eventArguments) where TEvent : EventArgs
+        {
+            // The parameter makes a temporary copy of the event to avoid possibility of a race
+            // condition if the last subscriber unsubscribes immediately after the null check
+            // and before the event is raised.
 
             // Event will be null if there are no subscribers
-            temporaryEvent?.Invoke(this, matterCreationEvent);
+            eventHandler?.Invoke(this, eventArguments);
         }
-    }
+}
 }

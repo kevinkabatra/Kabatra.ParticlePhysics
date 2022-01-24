@@ -5,9 +5,10 @@
     using System.Linq;
     using Constants;
     using ElementaryParticles.Quarks;
+    using Events;
+    using Events.MatterCreation;
     using Interfaces.ElementaryParticles;
     using Interfaces.ElementaryParticles.Quarks;
-    using MatterCreation;
 
     /// <summary>
     ///     The proton is a subatomic particle which has a positive electric charge and a mass slightly less than that of a neutron.
@@ -48,15 +49,6 @@
     /// <inheritdoc cref="SubatomicParticleCreator{T}"/>
     public class ProtonCreator : CompositeParticleCreator<Proton>
     {
-        /// <inheritdoc cref="SubatomicParticleCreator{T}.Create"/>
-        public override Proton Create()
-        {
-            var proton = new Proton();
-            TriggerMatterCreationEvent(new MatterCreationEvent(proton));
-
-            return proton;
-        }
-
         /// <inheritdoc cref="CompositeParticleCreator{T}.Create(ICollection{IQuark},ICollection{IGluon})"/>
         public override Proton Create(ICollection<IQuark> quarks, ICollection<IGluon> gluons)
         {

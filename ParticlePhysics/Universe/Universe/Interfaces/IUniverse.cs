@@ -81,6 +81,9 @@
         /// <param name="subatomicParticleCreator">The creator of the subatomic particle.</param>
         public void RegisterMatterCreationEvent<T>(SubatomicParticleCreator<T> subatomicParticleCreator) where T : ISubatomicParticle, new();
 
+        //ToDo: write comments
+        public void RegisterBetaDecayEvent<T>(SubatomicParticleCreator<T> subatomicParticleCreator) where T : ISubatomicParticle, new();
+
         /// <summary>
         ///     Sets epoch to a specified epoch.
         /// </summary>

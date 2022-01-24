@@ -24,7 +24,7 @@
         public void Dispose()
         {
             if (_neutron == null) return;
-            _neutron.BetaDecayEvent.Dispose();
+            _neutron.BetaDecayEventTimer.Dispose();
             _neutron = null;
 
             // Prevents Garbage Collector from wasting time
@@ -98,11 +98,18 @@
         [Fact]
         public void CanDecayIntoProtonAndElectron()
         {
-            _neutron = new Neutron();
+            //ToDo: test is currently failing
+            //ToDo: this needs to be an isolated test, so that I can make sure that I find the right particles after decay
+            //ToDo: test that no Neutrons exist
+            //ToDo: Currently cannot find Protons and Electrons because the Universe is not listening to their creation, 
+            //ToDo: also not listening to the Quarks and Gluons that make up the Neutron
+            //ToDo: Assert is happening prior to the event logic triggering, events are synchronous so I just need to run prior to Assert and it will work
+            
+            _neutron = (Neutron) SubatomicParticleCreator.Create();
             var universe = Universe.GetOrCreateInstance();
             
             // Wait for the neutron to decay
-            TimerUtility.FireTimerAndWait(_neutron.BetaDecayEvent);
+            TimerUtility.FireTimerAndWait(_neutron.BetaDecayEventTimer);
             
             Assert.NotEmpty(universe.SubatomicParticles.OfType<Proton>());
             Assert.NotEmpty(universe.SubatomicParticles.OfType<Electron>());

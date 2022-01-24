@@ -5,9 +5,10 @@
     using System.Linq;
     using Constants;
     using ElementaryParticles.Quarks;
+    using Events;
+    using Events.MatterCreation;
     using Interfaces.ElementaryParticles;
     using Interfaces.ElementaryParticles.Quarks;
-    using MatterCreation;
 
     /// <inheritdoc cref="Pion"/>
     public class PionPositive : Pion

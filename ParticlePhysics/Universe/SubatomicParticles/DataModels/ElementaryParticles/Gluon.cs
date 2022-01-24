@@ -2,10 +2,11 @@
 {
     using System.Timers;
     using Constants;
+    using Events;
+    using Events.MatterCreation;
     using Forces;
     using Interfaces.ElementaryParticles;
     using Interfaces.ElementaryParticles.Quarks;
-    using MatterCreation;
 
     /// <inheritdoc cref="IGluon"/>
     public class Gluon : ElementaryParticle, IGluon

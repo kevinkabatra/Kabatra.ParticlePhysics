@@ -1,12 +1,14 @@
 ﻿namespace Universe.UnitTests.Universe.InversionOfControlDataModels
 {
     using System.Collections.Generic;
+    using Events;
+    using Events.BetaDecay;
+    using Events.MatterCreation;
     using global::Universe.SubatomicParticles.DataModels;
     using global::Universe.SubatomicParticles.Interfaces;
     using global::Universe.Universe.Constants;
     using global::Universe.Universe.DataModels;
     using global::Universe.Universe.Interfaces;
-    using MatterCreation;
 
     /// <summary>
     ///     A Universe that is not a Singleton, this will be used for isolated testing of
@@ -48,6 +50,12 @@
             subatomicParticleCreator.MatterCreation += AddSubatomicParticleToUniverse;
         }
 
+        /// <inheritdoc cref="IUniverse.RegisterBetaDecayEvent{T}"/>
+        public void RegisterBetaDecayEvent<T>(SubatomicParticleCreator<T> subatomicParticleCreator) where T : ISubatomicParticle, new()
+        {
+            subatomicParticleCreator.BetaDecay += RemoveSubatomicParticleFromUniverse;
+        }
+
         /// <inheritdoc cref="IUniverse.SetEpoch"/>
         public void SetEpoch(Epoch epoch)
         {
@@ -62,6 +70,11 @@
         private void AddSubatomicParticleToUniverse(object sender, MatterCreationEvent matterCreationEvent)
         {
             SubatomicParticles.Add(matterCreationEvent.Particle);
+        }
+
+        private void RemoveSubatomicParticleFromUniverse(object sender, BetaDecayEvent betaDecayEvent)
+        {
+            SubatomicParticles.Remove(betaDecayEvent.ParticleThatExperiencesDecay);
         }
     }
 }

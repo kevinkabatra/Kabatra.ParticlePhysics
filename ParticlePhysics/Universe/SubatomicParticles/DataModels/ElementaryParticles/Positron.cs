@@ -2,7 +2,8 @@
 {
     using System;
     using Constants;
-    using MatterCreation;
+    using Events;
+    using Events.MatterCreation;
 
     /// <summary>
     ///     The positron or antielectron is the antiparticle or the antimatter counterpart of the electron.

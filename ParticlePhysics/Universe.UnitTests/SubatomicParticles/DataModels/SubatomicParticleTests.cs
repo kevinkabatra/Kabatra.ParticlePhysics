@@ -1,10 +1,11 @@
 ﻿namespace Universe.UnitTests.SubatomicParticles.DataModels
 {
+    using Events;
+    using Events.MatterCreation;
     using global::Universe.SubatomicParticles.DataModels;
     using global::Universe.SubatomicParticles.Interfaces;
     using global::Universe.Universe.DataModels;
     using global::Universe.Universe.Utilities;
-    using MatterCreation;
     using Xunit;
 
     public abstract class SubatomicParticleTests<TParticle, TParticleCreator> where TParticle : ISubatomicParticle, new() where TParticleCreator : SubatomicParticleCreator<TParticle>, new()
@@ -15,6 +16,7 @@
         {
             SubatomicParticleCreator = new TParticleCreator();
             UniverseUtility<Universe>.GetOrCreateUniverse().RegisterMatterCreationEvent(SubatomicParticleCreator);
+            UniverseUtility<Universe>.GetOrCreateUniverse().RegisterBetaDecayEvent(SubatomicParticleCreator);
         }
 
         /// <summary>

@@ -2,7 +2,8 @@
 {
     using System;
     using Constants;
-    using MatterCreation;
+    using Events;
+    using Events.MatterCreation;
 
     /// <summary>
     ///     The electron is a subatomic particle which has a negative electric charge.

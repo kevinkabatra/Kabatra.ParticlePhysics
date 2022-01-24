@@ -1,4 +1,4 @@
-﻿namespace MatterCreation
+﻿namespace Universe.Events.MatterCreation
 {
     /// <summary>
     /// https://en.wikipedia.org/wiki/Matter_creation
@@ -6,6 +6,6 @@
     /// </summary>
     public interface  IMatterCreationEvent
     {
-        object Particle { get; }
+        public object Particle { get; }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace MatterCreation
+﻿namespace Universe.Events.MatterCreation
 {
     using System;
 

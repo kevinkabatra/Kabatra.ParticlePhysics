@@ -7,9 +7,12 @@
     using Constants;
     using ElementaryParticles;
     using ElementaryParticles.Quarks;
+    using Events;
+    using Events.BetaDecay;
+    using Events.MatterCreation;
+    using Interfaces;
     using Interfaces.ElementaryParticles;
     using Interfaces.ElementaryParticles.Quarks;
-    using MatterCreation;
 
     /// <summary>
     ///     The neutron is a subatomic particle which has a neutral charge and a mass slightly greater than that of a Proton.
@@ -26,18 +29,18 @@
         public static readonly int ConstantBetaDecayTimeInMilliseconds = ConstantBetaDecayTimeInSeconds * 1000;
         public static readonly Type ConstantAntiparticleType = typeof(Antineutron);
 
+        // ToDo: the bug still exists, I need to convert this into a function
         public static readonly  ICollection<IQuark> ConstantComposition = new List<IQuark>
         {
-            new UpQuark(),
-            new DownQuark(),
-            new DownQuark()
+            new UpQuarkCreator().Create(),
+            new DownQuarkCreator().Create(),
+            new DownQuarkCreator().Create()
         };
 
-        public Timer BetaDecayEvent;
+        public BetaDecayTimer BetaDecayEventTimer;
 
         public Neutron() : base(ConstantComposition, ConstantGluons, ConstantMassInKilograms, ConstantMassInElectronVolts, ConstantAntiparticleType)
         {
-            SetBetaMinusDecayTimer();
         }
 
         public Neutron(ICollection<IQuark> quarks, ICollection<IGluon> gluons) : base(quarks, gluons, ConstantMassInKilograms, ConstantMassInElectronVolts, ConstantAntiparticleType)
@@ -49,39 +52,6 @@
             {
                 throw new ArgumentException($"A Neutron requires one (1) Up Quark and two (2) Down Quarks. This Neutron contains {numberOfUpQuarks} Up Quarks and {numberOfDownQuarks} Down Quarks.");
             }
-
-            SetBetaMinusDecayTimer();
-        }
-
-
-
-        /// <summary>
-        ///     Sets a timer for the beta minus decay of a neutron.
-        /// </summary>
-        private void SetBetaMinusDecayTimer()
-        {
-            BetaDecayEvent = new Timer(ConstantBetaDecayTimeInMilliseconds);
-            BetaDecayEvent.Elapsed += BetaMinusDecay;
-            BetaDecayEvent.AutoReset = false;
-            BetaDecayEvent.Enabled = true;
-        }
-
-        /// <summary>
-        ///     When outside of a nucleus neutrons are unstable and will decay.
-        /// <para>See the following article for more information:</para>
-        /// <para><a href="https://en.wikipedia.org/wiki/Free_neutron_decay">Free neutron decay</a></para>
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="elapsedEventArgs"></param>
-        private void BetaMinusDecay(object sender, ElapsedEventArgs elapsedEventArgs)
-        {
-            var universe = global::Universe.Universe.DataModels.Universe.GetOrCreateInstance();
-            universe.SubatomicParticles.Remove(this);
-
-            // Discard the new instances, they automatically add themselves to the universe.
-            // https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/functional/discards
-            _ = new Proton();
-            _ = new Electron();
         }
     }
 
@@ -91,9 +61,9 @@
         /// <inheritdoc cref="SubatomicParticleCreator{T}.Create"/>
         public override Neutron Create()
         {
-            var neutron = new Neutron();
-            TriggerMatterCreationEvent(new MatterCreationEvent(neutron));
-
+            var neutron = (Neutron) base.Create();
+            SetBetaMinusDecayTimer(ref neutron);
+            
             return neutron;
         }
 
@@ -102,8 +72,59 @@
         {
             var neutron = new Neutron(quarks, gluons);
             TriggerMatterCreationEvent(new MatterCreationEvent(neutron));
+            SetBetaMinusDecayTimer(ref neutron);
 
             return neutron;
+        }
+
+        /// <summary>
+        ///     When outside of a nucleus neutrons are unstable and will decay.
+        /// <para>See the following article for more information:</para>
+        /// <para><a href="https://en.wikipedia.org/wiki/Free_neutron_decay">Free neutron decay</a></para>
+        /// </summary>
+        /// <param name="timer"></param>
+        /// <param name="elapsedEventArgs"></param>
+        private void BetaMinusDecay(object timer, ElapsedEventArgs elapsedEventArgs)
+        {
+            var betaDecayEventTimer = (BetaDecayTimer) timer;
+            if (betaDecayEventTimer == null)
+            {
+                throw new Exception("Timer is not of time BetaDecayEvent");
+            }
+
+            TriggerBetaDecayEvent(betaDecayEventTimer.BetaDecayEvent);
+
+            //var universe = global::Universe.Universe.DataModels.Universe.GetOrCreateInstance();
+            //universe.SubatomicParticles.Remove(this);
+
+            // Discard the new instances, they automatically add themselves to the universe.
+            // https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/functional/discards
+            //_ = new Proton();
+            //_ = new Electron();
+            
+        }
+
+        /// <summary>
+        ///     Sets a timer for the beta minus decay of a neutron.
+        /// </summary>
+        private void SetBetaMinusDecayTimer(ref Neutron neutron)
+        {
+            //ToDo: figure out how to create once the event is thrown and not before
+            var particlesThatAreCreatedDueToDecay = new List<object>
+            {
+                new ProtonCreator().Create(),
+                new ElectronCreator().Create(),
+                //ToDo: I need to make an Antineutrino, probably means that I need a Neutrino as well. Change to Antineutrino once created
+                new ElectronCreator().Create()
+            };
+
+            var betaDecayEvent = new BetaDecayEvent(neutron, particlesThatAreCreatedDueToDecay);
+
+
+            neutron.BetaDecayEventTimer = new BetaDecayTimer(betaDecayEvent, Neutron.ConstantBetaDecayTimeInMilliseconds);
+            neutron.BetaDecayEventTimer.Elapsed += BetaMinusDecay;
+            neutron.BetaDecayEventTimer.AutoReset = false;
+            neutron.BetaDecayEventTimer.Enabled = true;
         }
     }
 }

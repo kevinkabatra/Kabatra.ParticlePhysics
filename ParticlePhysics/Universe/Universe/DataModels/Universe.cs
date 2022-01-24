@@ -3,9 +3,11 @@
     using System;
     using System.Collections.Generic;
     using Constants;
+    using Events;
+    using Events.BetaDecay;
+    using Events.MatterCreation;
     using Interfaces;
     using Kabatra.Common.Singleton;
-    using MatterCreation;
     using SubatomicParticles.DataModels;
     using SubatomicParticles.Interfaces;
 
@@ -56,6 +58,12 @@
             subatomicParticleCreator.MatterCreation += AddSubatomicParticleToUniverse;
         }
 
+        /// <inheritdoc cref="IUniverse.RegisterBetaDecayEvent{T}"/>
+        public void RegisterBetaDecayEvent<T>(SubatomicParticleCreator<T> subatomicParticleCreator) where T : ISubatomicParticle, new()
+        {
+            subatomicParticleCreator.BetaDecay += RemoveSubatomicParticleFromUniverse;
+        }
+
         /// <inheritdoc cref="IUniverse.SetEpoch"/>
         public void SetEpoch(Epoch epoch)
         {
@@ -71,6 +79,11 @@
         private void AddSubatomicParticleToUniverse(object sender, MatterCreationEvent matterCreationEvent)
         {
             SubatomicParticles.Add(matterCreationEvent.Particle);
+        }
+
+        private void RemoveSubatomicParticleFromUniverse(object sender, BetaDecayEvent betaDecayEvent)
+        {
+            SubatomicParticles.Remove(betaDecayEvent.ParticleThatExperiencesDecay);
         }
 
         /// <summary>

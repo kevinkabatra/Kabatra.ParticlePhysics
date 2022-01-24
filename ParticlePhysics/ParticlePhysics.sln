@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Universe", "Universe\Univer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Universe.UnitTests", "Universe.UnitTests\Universe.UnitTests.csproj", "{FFCAC6C7-8B9E-4B55-A1F5-E9167922E1A2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatterCreation", "MatterCreation\MatterCreation.csproj", "{218C82C0-C753-4924-BC14-BEBE5BEC93D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Universe.Events", "MatterCreation\Universe.Events.csproj", "{218C82C0-C753-4924-BC14-BEBE5BEC93D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
