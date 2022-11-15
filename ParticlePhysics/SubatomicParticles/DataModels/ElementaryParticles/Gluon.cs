@@ -19,12 +19,12 @@
 
         public Gluon() : base(ConstantChargeType, ConstantChargeValue, ConstantMassInKilograms, ConstantMassInElectronVolts)
         {
-            AttachQuarkAEvent = new Timer(1000);
+            AttachQuarkAEvent = new Timer(10);
             AttachQuarkAEvent.Elapsed += FindAndAttachQuarkA;
             AttachQuarkAEvent.AutoReset = true;
             AttachQuarkAEvent.Enabled = true;
 
-            AttachQuarkBEvent = new Timer(1000);
+            AttachQuarkBEvent = new Timer(10);
             AttachQuarkBEvent.Elapsed += FindAndAttachQuarkB;
             AttachQuarkBEvent.AutoReset = true;
             AttachQuarkBEvent.Enabled = true;
@@ -33,17 +33,17 @@
         public IQuark QuarkA { get; set; }
         public IQuark QuarkB { get; set; }
 
-        private void FindAndAttachQuarkA(object sender, ElapsedEventArgs elapsedEventArgs)
+        private async void FindAndAttachQuarkA(object sender, ElapsedEventArgs elapsedEventArgs)
         {
-            QuarkA = StrongNuclearForce<IQuark>.Attach();
+            QuarkA = await StrongNuclearForce<IQuark>.Attach();
             if (QuarkA == null) return;
             AttachQuarkAEvent.Dispose();
             QuarkA.HasAttractedToAnotherObject = true;
         }
 
-        private void FindAndAttachQuarkB(object sender, ElapsedEventArgs elapsedEventArgs)
+        private async void FindAndAttachQuarkB(object sender, ElapsedEventArgs elapsedEventArgs)
         {
-            QuarkB = StrongNuclearForce<IQuark>.Attach();
+            QuarkB = await StrongNuclearForce<IQuark>.Attach();
             if (QuarkB == null) return;
             AttachQuarkBEvent.Dispose();
             QuarkB.HasAttractedToAnotherObject = true;

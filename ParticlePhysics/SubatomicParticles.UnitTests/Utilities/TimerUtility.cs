@@ -15,12 +15,20 @@
     {
         public static void FireTimerAndWait(Timer timer)
         {
-            timer.Stop();
-            timer.Interval = 1;
-            timer.Start();
+            try 
+            {
+                timer.Stop();
+                timer.Interval = 1;
+                timer.Start();
+            }
+            catch(System.ObjectDisposedException exception) 
+            {
+                // Timer has already been completed.
+                return;
+            }
 
             // Wait for much longer than the time of the timer to allow the event time to finish.
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(10);
         }
     }
 }
