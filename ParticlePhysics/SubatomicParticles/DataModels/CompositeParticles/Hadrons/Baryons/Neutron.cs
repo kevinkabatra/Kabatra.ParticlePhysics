@@ -28,7 +28,6 @@
 
         public Neutron() : base(Neutron.ConstantComposition(), ConstantGluons, ConstantMassInKilograms, ConstantMassInElectronVolts)
         {
-            Console.WriteLine("This method is still called");
             SetBetaMinusDecayTimer();
         }
 

@@ -35,7 +35,7 @@
 
         private async void FindAndAttachQuarkA(object sender, ElapsedEventArgs elapsedEventArgs)
         {
-            QuarkA = await StrongNuclearForce<IQuark>.Attach();
+            QuarkA = await StrongNuclearForce.Attach<IQuark>();
             if (QuarkA == null) return;
             AttachQuarkAEvent.Dispose();
             QuarkA.HasAttractedToAnotherObject = true;
@@ -43,7 +43,7 @@
 
         private async void FindAndAttachQuarkB(object sender, ElapsedEventArgs elapsedEventArgs)
         {
-            QuarkB = await StrongNuclearForce<IQuark>.Attach();
+            QuarkB = await StrongNuclearForce.Attach<IQuark>();
             if (QuarkB == null) return;
             AttachQuarkBEvent.Dispose();
             QuarkB.HasAttractedToAnotherObject = true;

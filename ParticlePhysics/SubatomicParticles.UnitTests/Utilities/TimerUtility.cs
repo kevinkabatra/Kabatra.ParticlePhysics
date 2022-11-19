@@ -21,7 +21,7 @@
                 timer.Interval = 1;
                 timer.Start();
             }
-            catch(System.ObjectDisposedException exception) 
+            catch(System.ObjectDisposedException) 
             {
                 // Timer has already been completed.
                 return;
